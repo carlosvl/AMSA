@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact_Source__c</fullName>
+    <description>Martin Friedman</description>
+    <externalId>false</externalId>
+    <label>Contact Source</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>-</fullName>
+                <default>false</default>
+                <label>-</label>
+            </value>
+            <value>
+                <fullName>Alexander von Perfall</fullName>
+                <default>false</default>
+                <label>Alexander von Perfall</label>
+            </value>
+            <value>
+                <fullName>Alex Kwit</fullName>
+                <default>false</default>
+                <label>Alex Kwit</label>
+            </value>
+            <value>
+                <fullName>Ben Barnes</fullName>
+                <default>false</default>
+                <label>Ben Barnes</label>
+            </value>
+            <value>
+                <fullName>Benjamin Schliemann</fullName>
+                <default>false</default>
+                <label>Benjamin Schliemann</label>
+            </value>
+            <value>
+                <fullName>Douglas Erb</fullName>
+                <default>false</default>
+                <label>Douglas Erb</label>
+            </value>
+            <value>
+                <fullName>George Lloyd</fullName>
+                <default>false</default>
+                <label>George Lloyd</label>
+            </value>
+            <value>
+                <fullName>Jeff Meckler</fullName>
+                <default>false</default>
+                <label>Jeff Meckler</label>
+            </value>
+            <value>
+                <fullName>Jeffrey McMillen</fullName>
+                <default>false</default>
+                <label>Jeffrey McMillen</label>
+            </value>
+            <value>
+                <fullName>Jim Reddoch</fullName>
+                <default>false</default>
+                <label>Jim Reddoch</label>
+            </value>
+            <value>
+                <fullName>Joel Jankowsky</fullName>
+                <default>false</default>
+                <label>Joel Jankowsky</label>
+            </value>
+            <value>
+                <fullName>Marshall Urist</fullName>
+                <default>false</default>
+                <label>Marshall Urist</label>
+            </value>
+            <value>
+                <fullName>Martin Friedman</fullName>
+                <default>false</default>
+                <label>Martin Friedman</label>
+            </value>
+            <value>
+                <fullName>Michelle Zhang</fullName>
+                <default>false</default>
+                <label>Michelle Zhang</label>
+            </value>
+            <value>
+                <fullName>Molly Chiramonte</fullName>
+                <default>false</default>
+                <label>Molly Chiramonte</label>
+            </value>
+            <value>
+                <fullName>Pablo Legorreta</fullName>
+                <default>false</default>
+                <label>Pablo Legorreta</label>
+            </value>
+            <value>
+                <fullName>Pedro Gonzalez de Cosio</fullName>
+                <default>false</default>
+                <label>Pedro Gonzalez de Cosio</label>
+            </value>
+            <value>
+                <fullName>Robert Leonard</fullName>
+                <default>false</default>
+                <label>Robert Leonard</label>
+            </value>
+            <value>
+                <fullName>Rory Riggs</fullName>
+                <default>false</default>
+                <label>Rory Riggs</label>
+            </value>
+            <value>
+                <fullName>Sara Klymkowsky</fullName>
+                <default>false</default>
+                <label>Sara Klymkowsky</label>
+            </value>
+            <value>
+                <fullName>Susan Kaufman</fullName>
+                <default>false</default>
+                <label>Susan Kaufman</label>
+            </value>
+            <value>
+                <fullName>Susannah Gray</fullName>
+                <default>false</default>
+                <label>Susannah Gray</label>
+            </value>
+            <value>
+                <fullName>Terry Coyne</fullName>
+                <default>false</default>
+                <label>Terry Coyne</label>
+            </value>
+            <value>
+                <fullName>Wyeth Wiedeman</fullName>
+                <default>false</default>
+                <label>Wyeth Wiedeman</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

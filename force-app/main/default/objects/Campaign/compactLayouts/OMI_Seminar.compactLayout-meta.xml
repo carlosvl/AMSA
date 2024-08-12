@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OMI_Seminar</fullName>
+    <fields>Academic_Institution__c</fields>
+    <fields>IsActive</fields>
+    <fields>Name</fields>
+    <fields>NumberOfContacts</fields>
+    <fields>Course_Director__c</fields>
+    <fields>EndDate</fields>
+    <fields>LastModifiedById</fields>
+    <fields>Location__c</fields>
+    <fields>StartDate</fields>
+    <label>OMI Seminar</label>
+</CompactLayout>

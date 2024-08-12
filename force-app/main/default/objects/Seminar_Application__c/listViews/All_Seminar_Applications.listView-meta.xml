@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Seminar_Applications</fullName>
+    <columns>NAME</columns>
+    <columns>Applicant__c</columns>
+    <columns>Seminar__c</columns>
+    <columns>Application_Stage__c</columns>
+    <columns>App_Date__c</columns>
+    <columns>Alianza_App_Date_II__c</columns>
+    <columns>Application_Number__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Seminar Applications</label>
+</ListView>

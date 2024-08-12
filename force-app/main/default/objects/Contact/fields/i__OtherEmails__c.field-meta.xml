@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>i__OtherEmails__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Enter additional email addresses here, one per line</description>
+    <externalId>false</externalId>
+    <inlineHelpText>For Politicians, this is their &apos;Home District&apos;</inlineHelpText>
+    <label>Other Email Addresses</label>
+    <length>2048</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

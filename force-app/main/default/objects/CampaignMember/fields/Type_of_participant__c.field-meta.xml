@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type_of_participant__c</fullName>
+    <externalId>false</externalId>
+    <label>Type of participant</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>International Faculty</fullName>
+                <default>false</default>
+                <label>International Faculty</label>
+            </value>
+            <value>
+                <fullName>National Faculty</fullName>
+                <default>false</default>
+                <label>National Faculty</label>
+            </value>
+            <value>
+                <fullName>Seminar Participant</fullName>
+                <default>false</default>
+                <label>Seminar Participant</label>
+            </value>
+            <value>
+                <fullName>Participant</fullName>
+                <default>false</default>
+                <label>Participant</label>
+            </value>
+            <value>
+                <fullName>Not selected</fullName>
+                <default>false</default>
+                <label>Not selected</label>
+            </value>
+            <value>
+                <fullName>Participation Cancelled</fullName>
+                <default>false</default>
+                <label>Participation Cancelled</label>
+            </value>
+            <value>
+                <fullName>Seminar Cancelled</fullName>
+                <default>false</default>
+                <label>Seminar Cancelled</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
