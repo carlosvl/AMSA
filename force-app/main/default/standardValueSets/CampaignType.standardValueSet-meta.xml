@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>OMI Seminar</fullName>
+        <default>false</default>
+        <label>OMI Seminar</label>
+    </standardValue>
+    <standardValue>
+        <fullName>OMI-MEX Seminar</fullName>
+        <default>false</default>
+        <label>OMI-MEX Seminar</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Satellite Symposium Seminar</fullName>
+        <default>false</default>
+        <label>Satellite Symposium Seminar</label>
+    </standardValue>
+    <standardValue>
+        <fullName>W2Form</fullName>
+        <default>false</default>
+        <label>W2Form</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Seminar</fullName>
+        <default>false</default>
+        <label>Seminar</label>
+    </standardValue>
+</StandardValueSet>

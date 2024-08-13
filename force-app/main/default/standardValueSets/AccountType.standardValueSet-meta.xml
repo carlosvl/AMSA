@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>AAF</fullName>
+        <default>false</default>
+        <label>AAF</label>
+    </standardValue>
+    <standardValue>
+        <fullName>ALLIANCE</fullName>
+        <default>false</default>
+        <label>ALLIANCE</label>
+    </standardValue>
+    <standardValue>
+        <fullName>AMSA</fullName>
+        <default>false</default>
+        <label>AMSA</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Aseguradora</fullName>
+        <default>false</default>
+        <label>Aseguradora</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Biotech</fullName>
+        <default>false</default>
+        <label>Biotech</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Biotech Company</fullName>
+        <default>false</default>
+        <label>Biotech Company</label>
+    </standardValue>
+    <standardValue>
+        <fullName>BOT</fullName>
+        <default>false</default>
+        <label>BOT</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Candidate</fullName>
+        <default>false</default>
+        <label>Candidate</label>
+    </standardValue>
+    <standardValue>
+        <fullName>COMMUNICATIONS</fullName>
+        <default>false</default>
+        <label>COMMUNICATIONS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Competitor</fullName>
+        <default>false</default>
+        <label>Competitor</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Consultant</fullName>
+        <default>false</default>
+        <label>Consultant</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Custodian</fullName>
+        <default>false</default>
+        <label>Custodian</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Director</fullName>
+        <default>false</default>
+        <label>Director</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Doctor</fullName>
+        <default>false</default>
+        <label>Doctor</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Donor Advised Fund</fullName>
+        <default>false</default>
+        <label>Donor Advised Fund</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Embajada</fullName>
+        <default>false</default>
+        <label>Embajada</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Endowment (END)</fullName>
+        <default>false</default>
+        <label>Endowment (END)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Expert Network</fullName>
+        <default>false</default>
+        <label>Expert Network</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Family Office</fullName>
+        <default>false</default>
+        <label>Family Office</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Fellow</fullName>
+        <default>false</default>
+        <label>Fellow</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Foundation</fullName>
+        <default>false</default>
+        <label>Foundation</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Fundación Hospital</fullName>
+        <default>false</default>
+        <label>Fundación Hospital</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Fund-of-Fund (FoF)</fullName>
+        <default>false</default>
+        <label>Fund-of-Fund (FoF)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>GOVT.RELATIONS</fullName>
+        <default>false</default>
+        <label>GOVT.RELATIONS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>High Net Worth Individual (HNWI)</fullName>
+        <default>false</default>
+        <label>High Net Worth Individual (HNWI)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Hospital</fullName>
+        <default>false</default>
+        <label>Hospital</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Institutional Investor (II)</fullName>
+        <default>false</default>
+        <label>Institutional Investor (II)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Instituto</fullName>
+        <default>false</default>
+        <label>Instituto</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Insurance Company</fullName>
+        <default>false</default>
+        <label>Insurance Company</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Investment Advisor</fullName>
+        <default>false</default>
+        <label>Investment Advisor</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Investment Bank</fullName>
+        <default>false</default>
+        <label>Investment Bank</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Legal Counsel</fullName>
+        <default>false</default>
+        <label>Legal Counsel</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Marketer</fullName>
+        <default>false</default>
+        <label>Marketer</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Media</fullName>
+        <default>false</default>
+        <label>Media</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Non-Profit</fullName>
+        <default>false</default>
+        <label>Non-Profit</label>
+    </standardValue>
+    <standardValue>
+        <fullName>NY &amp; Salzburgo Application</fullName>
+        <default>false</default>
+        <label>NY &amp; Salzburgo Application</label>
+    </standardValue>
+    <standardValue>
+        <fullName>OECD</fullName>
+        <default>false</default>
+        <label>OECD</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Oficinas</fullName>
+        <default>false</default>
+        <label>Oficinas</label>
+    </standardValue>
+    <standardValue>
+        <fullName>OMI</fullName>
+        <default>false</default>
+        <label>OMI</label>
+    </standardValue>
+    <standardValue>
+        <fullName>OMI/BOT</fullName>
+        <default>false</default>
+        <label>OMI/BOT</label>
+    </standardValue>
+    <standardValue>
+        <fullName>OMI ALLIANCE</fullName>
+        <default>false</default>
+        <label>OMI ALLIANCE</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </standardValue>
+    <standardValue>
+        <fullName>OUTSOURCE</fullName>
+        <default>false</default>
+        <label>OUTSOURCE</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Pension Fund - Corporate (ERISA)</fullName>
+        <default>false</default>
+        <label>Pension Fund - Corporate (ERISA)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Pension Fund - Public (PPF)</fullName>
+        <default>false</default>
+        <label>Pension Fund - Public (PPF)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Pharma</fullName>
+        <default>false</default>
+        <label>Pharma</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Pharmaceutical Company</fullName>
+        <default>false</default>
+        <label>Pharmaceutical Company</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Placement Agent</fullName>
+        <default>false</default>
+        <label>Placement Agent</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Political Action Committee (PAC)</fullName>
+        <default>false</default>
+        <label>Political Action Committee (PAC)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Proveedor</fullName>
+        <default>false</default>
+        <label>Proveedor</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Public Advocacy</fullName>
+        <default>false</default>
+        <label>Public Advocacy</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Public Sector</fullName>
+        <default>false</default>
+        <label>Public Sector</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Research Hub</fullName>
+        <default>false</default>
+        <label>Research Hub</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Research Lab</fullName>
+        <default>false</default>
+        <label>Research Lab</label>
+    </standardValue>
+    <standardValue>
+        <fullName>ROYALTY PHARMA</fullName>
+        <default>false</default>
+        <label>ROYALTY PHARMA</label>
+    </standardValue>
+    <standardValue>
+        <fullName>SELECT.COMMITTEE</fullName>
+        <default>false</default>
+        <label>SELECT.COMMITTEE</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Service Provider</fullName>
+        <default>false</default>
+        <label>Service Provider</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Strategic Partner</fullName>
+        <default>false</default>
+        <label>Strategic Partner</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Trade Group</fullName>
+        <default>false</default>
+        <label>Trade Group</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Universidad</fullName>
+        <default>false</default>
+        <label>Universidad</label>
+    </standardValue>
+    <standardValue>
+        <fullName>University or Institute</fullName>
+        <default>false</default>
+        <label>University or Institute</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Unknown</fullName>
+        <default>false</default>
+        <label>Unknown</label>
+    </standardValue>
+</StandardValueSet>

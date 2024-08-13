@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>BD Investment Opportunity</fullName>
+        <default>false</default>
+        <label>BD Investment Opportunity</label>
+    </standardValue>
+    <standardValue>
+        <fullName>BD Relationship Building</fullName>
+        <default>false</default>
+        <label>BD Relationship Building</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Consent Form</fullName>
+        <default>false</default>
+        <label>Consent Form</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Email</fullName>
+        <default>false</default>
+        <label>Email</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Exchange Offer Election</fullName>
+        <default>false</default>
+        <label>Exchange Offer Election</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Expert Call</fullName>
+        <default>false</default>
+        <label>Expert Call</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Follow Up Reminder</fullName>
+        <default>true</default>
+        <label>Follow Up Reminder</label>
+    </standardValue>
+    <standardValue>
+        <fullName>IR Call</fullName>
+        <default>false</default>
+        <label>IR Call</label>
+    </standardValue>
+    <standardValue>
+        <fullName>IR Email</fullName>
+        <default>false</default>
+        <label>IR Email</label>
+    </standardValue>
+    <standardValue>
+        <fullName>IR Meeting</fullName>
+        <default>false</default>
+        <label>IR Meeting</label>
+    </standardValue>
+    <standardValue>
+        <fullName>IR Note</fullName>
+        <default>false</default>
+        <label>IR Note</label>
+    </standardValue>
+    <standardValue>
+        <fullName>LP Call</fullName>
+        <default>false</default>
+        <label>LP Call</label>
+    </standardValue>
+    <standardValue>
+        <fullName>LP Email</fullName>
+        <default>false</default>
+        <label>LP Email</label>
+    </standardValue>
+    <standardValue>
+        <fullName>LP Meeting</fullName>
+        <default>false</default>
+        <label>LP Meeting</label>
+    </standardValue>
+    <standardValue>
+        <fullName>LP Note</fullName>
+        <default>false</default>
+        <label>LP Note</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Management Call</fullName>
+        <default>false</default>
+        <label>Management Call</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Mexico Interview Notes</fullName>
+        <default>false</default>
+        <label>Mexico Interview Notes</label>
+    </standardValue>
+    <standardValue>
+        <fullName>NY Interview Notes</fullName>
+        <default>false</default>
+        <label>NY Interview Notes</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </standardValue>
+</StandardValueSet>

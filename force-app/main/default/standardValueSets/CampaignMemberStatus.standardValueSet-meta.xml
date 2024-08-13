@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>true</sorted>
+    <standardValue>
+        <fullName>Accepted</fullName>
+        <default>false</default>
+        <label>Accepted</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Added as Member</fullName>
+        <default>false</default>
+        <label>Added as Member</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Attended</fullName>
+        <default>false</default>
+        <label>Attended</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Confirmed</fullName>
+        <default>false</default>
+        <label>Confirmed</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Contact</fullName>
+        <default>false</default>
+        <label>Contact</label>
+    </standardValue>
+    <standardValue>
+        <fullName>CV Received</fullName>
+        <default>false</default>
+        <label>CV Received</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Declined Invitation</fullName>
+        <default>false</default>
+        <label>Declined Invitation</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Invited</fullName>
+        <default>false</default>
+        <label>Invited</label>
+    </standardValue>
+    <standardValue>
+        <fullName>MAYBE</fullName>
+        <default>false</default>
+        <label>MAYBE</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Mexico Approval</fullName>
+        <default>false</default>
+        <label>Mexico Approval</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Mexico Interview Conducted</fullName>
+        <default>false</default>
+        <label>Mexico Interview Conducted</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Mexico Rejection</fullName>
+        <default>false</default>
+        <label>Mexico Rejection</label>
+    </standardValue>
+    <standardValue>
+        <fullName>NO</fullName>
+        <default>false</default>
+        <label>NO</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Not Attended</fullName>
+        <default>false</default>
+        <label>Not Attended</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Not Registered</fullName>
+        <default>false</default>
+        <label>Not Registered</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Not Selected</fullName>
+        <default>false</default>
+        <label>Not Selected</label>
+    </standardValue>
+    <standardValue>
+        <fullName>NY Approval</fullName>
+        <default>false</default>
+        <label>NY Approval</label>
+    </standardValue>
+    <standardValue>
+        <fullName>NY Interview Conducted</fullName>
+        <default>false</default>
+        <label>NY Interview Conducted</label>
+    </standardValue>
+    <standardValue>
+        <fullName>NY Rejection</fullName>
+        <default>false</default>
+        <label>NY Rejection</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Post Seminar Report Received</fullName>
+        <default>false</default>
+        <label>Post Seminar Report Received</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Recommendation Letter Received</fullName>
+        <default>false</default>
+        <label>Recommendation Letter Received</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Responded</fullName>
+        <default>false</default>
+        <label>Responded</label>
+    </standardValue>
+    <standardValue>
+        <fullName>RSVP&apos;d Yes</fullName>
+        <default>false</default>
+        <label>RSVP&apos;d Yes</label>
+    </standardValue>
+    <standardValue>
+        <fullName>RSVP&apos;s No</fullName>
+        <default>false</default>
+        <label>RSVP&apos;s No</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Salzburg Approval</fullName>
+        <default>false</default>
+        <label>Salzburg Approval</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Salzburg Rejection</fullName>
+        <default>false</default>
+        <label>Salzburg Rejection</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Selected</fullName>
+        <default>false</default>
+        <label>Selected</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Sent</fullName>
+        <default>false</default>
+        <label>Sent</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Support Letter Received</fullName>
+        <default>false</default>
+        <label>Support Letter Received</label>
+    </standardValue>
+    <standardValue>
+        <fullName>To be contacted</fullName>
+        <default>false</default>
+        <label>To be contacted</label>
+    </standardValue>
+    <standardValue>
+        <fullName>YES</fullName>
+        <default>false</default>
+        <label>YES</label>
+    </standardValue>
+</StandardValueSet>
