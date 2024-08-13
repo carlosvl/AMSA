@@ -9,7 +9,4 @@
     <columns>CORE.USERS.ALIAS</columns>
     <filterScope>Everything</filterScope>
     <label>All Contacts</label>
-    <sharedTo>
-        <group>RPUsers</group>
-    </sharedTo>
 </ListView>

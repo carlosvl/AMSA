@@ -5,8 +5,6 @@
     <label>Shipping Zip(c)</label>
     <length>10</length>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>true</trackHistory>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>
