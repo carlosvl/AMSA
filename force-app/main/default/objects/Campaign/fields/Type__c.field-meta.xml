@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Type</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>OMI Seminar</fullName>
+                <default>false</default>
+                <label>OMI Seminar</label>
+            </value>
+            <value>
+                <fullName>OMI-MEX Seminar</fullName>
+                <default>false</default>
+                <label>OMI-MEX Seminar</label>
+            </value>
+            <value>
+                <fullName>AMSA Seminar</fullName>
+                <default>false</default>
+                <label>AMSA Seminar</label>
+            </value>
+            <value>
+                <fullName>AMSA Activity</fullName>
+                <default>false</default>
+                <label>AMSA Activity</label>
+            </value>
+            <value>
+                <fullName>OMI Observership</fullName>
+                <default>false</default>
+                <label>OMI Observership</label>
+            </value>
+            <value>
+                <fullName>CHOP Observership</fullName>
+                <default>true</default>
+                <label>CHOP Observership</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

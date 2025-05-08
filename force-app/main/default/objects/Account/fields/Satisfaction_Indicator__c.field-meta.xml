@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Satisfaction_Indicator__c</fullName>
+    <externalId>false</externalId>
+    <formula>IMAGE(CASE( Satisfaction_Level__c,&quot;Very Satisfied&quot;, &quot;/img/samples/stars_500.gif&quot;, &quot;Satisfied&quot;, &quot;/img/samples/stars_300.gif&quot;, &quot;Not Very Satisfied&quot;, &quot;/img/samples/stars_100.gif&quot;,&quot;/img/samples/stars_100.gif&quot;),&quot;No Satisfaction Level&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Custom Formula Field based on satisfaction level</inlineHelpText>
+    <label>Satisfaction Indicator</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

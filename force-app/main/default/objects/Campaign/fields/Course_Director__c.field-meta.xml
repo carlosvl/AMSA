@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Course_Director__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Course Director</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Seminars Directed</relationshipLabel>
+    <relationshipName>Seminars_Directed</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

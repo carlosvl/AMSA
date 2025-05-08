@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Investment_Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Investment Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Type</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Existing Investor</fullName>
+                <default>false</default>
+                <label>Existing Investor</label>
+            </value>
+            <value>
+                <fullName>Former Investor</fullName>
+                <default>false</default>
+                <label>Former Investor</label>
+            </value>
+            <value>
+                <fullName>Not Qualified</fullName>
+                <default>false</default>
+                <label>Not Qualified</label>
+            </value>
+            <value>
+                <fullName>Prospective Investor</fullName>
+                <default>false</default>
+                <label>Prospective Investor</label>
+            </value>
+            <value>
+                <fullName>Term Loan Holder</fullName>
+                <default>false</default>
+                <label>Term Loan Holder</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Pension Fund - Public (PPF)</controllingFieldValue>
+            <controllingFieldValue>Pension Fund - Corporate (ERISA)</controllingFieldValue>
+            <controllingFieldValue>Institutional Investor (II)</controllingFieldValue>
+            <controllingFieldValue>Insurance Company</controllingFieldValue>
+            <controllingFieldValue>Fund-of-Fund (FoF)</controllingFieldValue>
+            <controllingFieldValue>Investment Advisor</controllingFieldValue>
+            <controllingFieldValue>Consultant</controllingFieldValue>
+            <controllingFieldValue>Placement Agent</controllingFieldValue>
+            <controllingFieldValue>Investment Bank</controllingFieldValue>
+            <controllingFieldValue>Family Office</controllingFieldValue>
+            <controllingFieldValue>High Net Worth Individual (HNWI)</controllingFieldValue>
+            <controllingFieldValue>Endowment (END)</controllingFieldValue>
+            <controllingFieldValue>Foundation</controllingFieldValue>
+            <valueName>Existing Investor</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pension Fund - Public (PPF)</controllingFieldValue>
+            <controllingFieldValue>Pension Fund - Corporate (ERISA)</controllingFieldValue>
+            <controllingFieldValue>Institutional Investor (II)</controllingFieldValue>
+            <controllingFieldValue>Insurance Company</controllingFieldValue>
+            <controllingFieldValue>Fund-of-Fund (FoF)</controllingFieldValue>
+            <controllingFieldValue>Investment Advisor</controllingFieldValue>
+            <controllingFieldValue>Consultant</controllingFieldValue>
+            <controllingFieldValue>Placement Agent</controllingFieldValue>
+            <controllingFieldValue>Investment Bank</controllingFieldValue>
+            <controllingFieldValue>Family Office</controllingFieldValue>
+            <controllingFieldValue>High Net Worth Individual (HNWI)</controllingFieldValue>
+            <controllingFieldValue>Endowment (END)</controllingFieldValue>
+            <controllingFieldValue>Foundation</controllingFieldValue>
+            <valueName>Former Investor</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pension Fund - Public (PPF)</controllingFieldValue>
+            <controllingFieldValue>Pension Fund - Corporate (ERISA)</controllingFieldValue>
+            <controllingFieldValue>Institutional Investor (II)</controllingFieldValue>
+            <controllingFieldValue>Insurance Company</controllingFieldValue>
+            <controllingFieldValue>Fund-of-Fund (FoF)</controllingFieldValue>
+            <controllingFieldValue>Investment Advisor</controllingFieldValue>
+            <controllingFieldValue>Consultant</controllingFieldValue>
+            <controllingFieldValue>Placement Agent</controllingFieldValue>
+            <controllingFieldValue>Investment Bank</controllingFieldValue>
+            <controllingFieldValue>Family Office</controllingFieldValue>
+            <controllingFieldValue>High Net Worth Individual (HNWI)</controllingFieldValue>
+            <controllingFieldValue>Endowment (END)</controllingFieldValue>
+            <controllingFieldValue>Foundation</controllingFieldValue>
+            <valueName>Not Qualified</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pension Fund - Public (PPF)</controllingFieldValue>
+            <controllingFieldValue>Pension Fund - Corporate (ERISA)</controllingFieldValue>
+            <controllingFieldValue>Institutional Investor (II)</controllingFieldValue>
+            <controllingFieldValue>Insurance Company</controllingFieldValue>
+            <controllingFieldValue>Fund-of-Fund (FoF)</controllingFieldValue>
+            <controllingFieldValue>Investment Advisor</controllingFieldValue>
+            <controllingFieldValue>Consultant</controllingFieldValue>
+            <controllingFieldValue>Placement Agent</controllingFieldValue>
+            <controllingFieldValue>Investment Bank</controllingFieldValue>
+            <controllingFieldValue>Family Office</controllingFieldValue>
+            <controllingFieldValue>High Net Worth Individual (HNWI)</controllingFieldValue>
+            <controllingFieldValue>Endowment (END)</controllingFieldValue>
+            <controllingFieldValue>Foundation</controllingFieldValue>
+            <valueName>Prospective Investor</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pension Fund - Public (PPF)</controllingFieldValue>
+            <controllingFieldValue>Pension Fund - Corporate (ERISA)</controllingFieldValue>
+            <controllingFieldValue>Institutional Investor (II)</controllingFieldValue>
+            <controllingFieldValue>Insurance Company</controllingFieldValue>
+            <controllingFieldValue>Fund-of-Fund (FoF)</controllingFieldValue>
+            <controllingFieldValue>Investment Advisor</controllingFieldValue>
+            <controllingFieldValue>Consultant</controllingFieldValue>
+            <controllingFieldValue>Placement Agent</controllingFieldValue>
+            <controllingFieldValue>Investment Bank</controllingFieldValue>
+            <controllingFieldValue>Family Office</controllingFieldValue>
+            <controllingFieldValue>High Net Worth Individual (HNWI)</controllingFieldValue>
+            <controllingFieldValue>Endowment (END)</controllingFieldValue>
+            <controllingFieldValue>Foundation</controllingFieldValue>
+            <valueName>Term Loan Holder</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

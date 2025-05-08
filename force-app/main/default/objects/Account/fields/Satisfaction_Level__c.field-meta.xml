@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Satisfaction_Level__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Custom field to segment accounts by satisfaction level</inlineHelpText>
+    <label>Satisfaction Level</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Very Satisfied</fullName>
+                <default>false</default>
+                <label>Very Satisfied</label>
+            </value>
+            <value>
+                <fullName>Satisfied</fullName>
+                <default>false</default>
+                <label>Satisfied</label>
+            </value>
+            <value>
+                <fullName>Not Very Satisfied</fullName>
+                <default>false</default>
+                <label>Not Very Satisfied</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

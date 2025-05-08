@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OMI_Seminar</fullName>
+    <active>true</active>
+    <label>OMI Seminar</label>
+    <picklistValues>
+        <picklist>Type_of_participant__c</picklist>
+        <values>
+            <fullName>International Faculty</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>National Faculty</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not selected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Participant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Participation Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seminar Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seminar Participant</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

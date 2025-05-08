@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Campaign_ROI__c</fullName>
+    <externalId>false</externalId>
+    <formula>( AmountWonOpportunities -  ActualCost ) /  ActualCost</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>ROI is the return on investment or net gain.  This is a sample formula field that calculates (TOTAL VALUE WON OPPORTUNITIES - ACTUAL COST) / ACTUAL COST</inlineHelpText>
+    <label>Campaign ROI</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Percent</type>
+</CustomField>

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Master_Contact_Record_Type</fullName>
+    <active>true</active>
+    <label>Master Contact Record Type</label>
+    <picklistValues>
+        <picklist>Contact_Source__c</picklist>
+        <values>
+            <fullName>-</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Alex Kwit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Alexander von Perfall</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ben Barnes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Benjamin Schliemann</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Douglas Erb</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>George Lloyd</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jeff Meckler</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jeffrey McMillen</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jim Reddoch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Joel Jankowsky</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marshall Urist</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Martin Friedman</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Michelle Zhang</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Molly Chiramonte</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pablo Legorreta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pedro Gonzalez de Cosio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Robert Leonard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rory Riggs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sara Klymkowsky</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Susan Kaufman</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Susannah Gray</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Terry Coyne</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wyeth Wiedeman</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Contact_Type__c</picklist>
+        <values>
+            <fullName>Candidate %28Declined%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Candidate %28New%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fellow</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sponsor</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Customer_Portal_User__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Gender__c</picklist>
+        <values>
+            <fullName>Female</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Male</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Investment_Status__c</picklist>
+        <values>
+            <fullName>Existing Investor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Former Investor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lender</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prospective Investor</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>LeadSource</picklist>
+        <values>
+            <fullName>Existing Investor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Former Investor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outlook Import</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Placement Agent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RP Affiliate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RP Internal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Third Party</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Name</picklist>
+        <values>
+            <fullName>Arq%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>C%2E P%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dr%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dra%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enf%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ing%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lic%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mr%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mrs%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ms%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mtr%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mtra%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prof%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type_of_Practice__c</picklist>
+        <values>
+            <fullName>Private Practice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public Practice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public and Private</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ambassador__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

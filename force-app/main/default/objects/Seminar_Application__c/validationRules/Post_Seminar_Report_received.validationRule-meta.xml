@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Post_Seminar_Report_received</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ISPICKVAL(Application_Stage__c, &quot;Post Seminar Report Received&quot;),
+ISBLANK ( Pre_Test_Result__c ),
+ISBLANK ( Pre_Test_Result__c ),
+ISBLANK ( Average__c ),
+ISBLANK ( Average_Post_Test__c )
+)</errorConditionFormula>
+    <errorMessage>Please include Pre and Post Test Results</errorMessage>
+</ValidationRule>

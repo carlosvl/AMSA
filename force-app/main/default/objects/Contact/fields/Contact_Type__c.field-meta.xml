@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Contact Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sponsor</fullName>
+                <default>false</default>
+                <label>Sponsor</label>
+            </value>
+            <value>
+                <fullName>Candidate (New)</fullName>
+                <default>false</default>
+                <label>Candidate (New)</label>
+            </value>
+            <value>
+                <fullName>Candidate (Declined)</fullName>
+                <default>false</default>
+                <label>Candidate (Declined)</label>
+            </value>
+            <value>
+                <fullName>Candidate</fullName>
+                <default>false</default>
+                <label>Candidate</label>
+            </value>
+            <value>
+                <fullName>Fellow</fullName>
+                <default>false</default>
+                <label>Fellow</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>ALLIANCE</fullName>
+                <default>false</default>
+                <label>ALLIANCE</label>
+            </value>
+            <value>
+                <fullName>AMSA</fullName>
+                <default>false</default>
+                <label>AMSA</label>
+            </value>
+            <value>
+                <fullName>BOT</fullName>
+                <default>false</default>
+                <label>BOT</label>
+            </value>
+            <value>
+                <fullName>COMMUNICATIONS</fullName>
+                <default>false</default>
+                <label>COMMUNICATIONS</label>
+            </value>
+            <value>
+                <fullName>GOVT.RELATIONS</fullName>
+                <default>false</default>
+                <label>GOVT.RELATIONS</label>
+            </value>
+            <value>
+                <fullName>Hospital</fullName>
+                <default>false</default>
+                <label>Hospital</label>
+            </value>
+            <value>
+                <fullName>OMI</fullName>
+                <default>false</default>
+                <label>OMI</label>
+            </value>
+            <value>
+                <fullName>OMI ALLIANCE</fullName>
+                <default>false</default>
+                <label>OMI ALLIANCE</label>
+            </value>
+            <value>
+                <fullName>OMI/BOT</fullName>
+                <default>false</default>
+                <label>OMI/BOT</label>
+            </value>
+            <value>
+                <fullName>OUTSOURCE</fullName>
+                <default>false</default>
+                <label>OUTSOURCE</label>
+            </value>
+            <value>
+                <fullName>ROYALTY PHARMA</fullName>
+                <default>false</default>
+                <label>ROYALTY PHARMA</label>
+            </value>
+            <value>
+                <fullName>SELECT.COMMITTEE</fullName>
+                <default>false</default>
+                <label>SELECT.COMMITTEE</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

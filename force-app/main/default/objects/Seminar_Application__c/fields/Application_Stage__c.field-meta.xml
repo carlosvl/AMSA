@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Application_Stage__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>1) Stage 1
+2) Stage 2</inlineHelpText>
+    <label>Application Stage</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>CV Received</fullName>
+                <default>false</default>
+                <label>CV Received</label>
+            </value>
+            <value>
+                <fullName>Recommendation Letter Received</fullName>
+                <default>false</default>
+                <label>Recommendation Letter Received</label>
+            </value>
+            <value>
+                <fullName>Mexico Interview Conducted</fullName>
+                <default>false</default>
+                <label>Mexico Interview Conducted</label>
+            </value>
+            <value>
+                <fullName>Mexico Approval</fullName>
+                <default>false</default>
+                <label>Mexico Approval</label>
+            </value>
+            <value>
+                <fullName>Mexico Rejection</fullName>
+                <default>false</default>
+                <label>Mexico Rejection</label>
+            </value>
+            <value>
+                <fullName>Salzburg Approval</fullName>
+                <default>false</default>
+                <label>Salzburg Approval</label>
+            </value>
+            <value>
+                <fullName>Salzburg Rejection</fullName>
+                <default>false</default>
+                <label>Salzburg Rejection</label>
+            </value>
+            <value>
+                <fullName>Post Seminar Report Received</fullName>
+                <default>false</default>
+                <label>Post Seminar Report Received</label>
+            </value>
+            <value>
+                <fullName>Not Attended</fullName>
+                <default>false</default>
+                <label>Not Attended</label>
+            </value>
+            <value>
+                <fullName>Attended</fullName>
+                <default>false</default>
+                <label>Attended</label>
+            </value>
+            <value>
+                <fullName>Attended Observership</fullName>
+                <default>false</default>
+                <label>Attended Observership</label>
+            </value>
+            <value>
+                <fullName>Seminar Cancelled</fullName>
+                <default>false</default>
+                <label>Seminar Cancelled</label>
+            </value>
+            <value>
+                <fullName>Travel Restrictions COVID 19</fullName>
+                <default>false</default>
+                <label>Travel Restrictions COVID 19</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

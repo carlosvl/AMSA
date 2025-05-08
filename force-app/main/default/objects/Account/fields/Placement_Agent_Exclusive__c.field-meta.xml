@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Placement_Agent_Exclusive__c</fullName>
+    <externalId>false</externalId>
+    <label>Placement Agent Exclusive</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>no</fullName>
+                <default>false</default>
+                <label>no</label>
+            </value>
+            <value>
+                <fullName>yes</fullName>
+                <default>false</default>
+                <label>yes</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
