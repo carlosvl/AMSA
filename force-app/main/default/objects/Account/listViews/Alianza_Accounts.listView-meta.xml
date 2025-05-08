@@ -14,7 +14,4 @@
         <value>Account.Alianza_Account_Record_Type</value>
     </filters>
     <label>Alianza Accounts</label>
-    <sharedTo>
-        <group>RPUsers</group>
-    </sharedTo>
 </ListView>

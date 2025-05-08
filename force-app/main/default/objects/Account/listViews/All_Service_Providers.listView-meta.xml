@@ -15,8 +15,5 @@
         <value>Service Provider</value>
     </filters>
     <label>All Service Providers</label>
-    <sharedTo>
-        <role>InternalUsers</role>
-        <role>PharmakonAdvisors</role>
-    </sharedTo>
+
 </ListView>
