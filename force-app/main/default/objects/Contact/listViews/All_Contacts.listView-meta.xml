@@ -12,7 +12,5 @@
     <columns>Specialty__c</columns>
     <filterScope>Everything</filterScope>
     <label>All Contacts</label>
-    <sharedTo>
-        <group>AlianzaUsers</group>
-    </sharedTo>
+
 </ListView>
