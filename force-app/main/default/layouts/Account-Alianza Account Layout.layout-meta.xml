@@ -65,22 +65,7 @@
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
-    <layoutSections>
-        <customLabel>true</customLabel>
-        <detailHeading>true</detailHeading>
-        <editHeading>false</editHeading>
-        <label>Emails</label>
-        <layoutColumns>
-            <layoutItems>
-                <height>200</height>
-                <page>i__aaAccountSnippet</page>
-                <showLabel>false</showLabel>
-                <showScrollbars>false</showScrollbars>
-                <width>100%</width>
-            </layoutItems>
-        </layoutColumns>
-        <style>OneColumn</style>
-    </layoutSections>
+
     <quickActionList>
         <quickActionListItems>
             <quickActionName>FeedItem.TextPost</quickActionName>
@@ -105,17 +90,7 @@
         <fields>CONTACT.PHONE1</fields>
         <relatedList>RelatedContactList</relatedList>
     </relatedLists>
-    <relatedLists>
-        <fields>Contact__c</fields>
-        <fields>Affiliation_Type__c</fields>
-        <fields>Affiliated_Description__c</fields>
-        <fields>NAME</fields>
-        <fields>CREATED_DATE</fields>
-        <fields>CREATEDBY_USER</fields>
-        <relatedList>Affiliation__c.Affiliated_Account__c</relatedList>
-        <sortField>Contact__c</sortField>
-        <sortOrder>Asc</sortOrder>
-    </relatedLists>
+
     <relatedLists>
         <fields>TASK.SUBJECT</fields>
         <fields>TASK.WHO_NAME</fields>

@@ -3,7 +3,5 @@
     <accessType>Shared</accessType>
     <name>Alianza Email Templates</name>
     <publicFolderAccess>ReadWrite</publicFolderAccess>
-    <sharedTo>
-        <group>AlianzaUsers</group>
-    </sharedTo>
+
 </EmailFolder>

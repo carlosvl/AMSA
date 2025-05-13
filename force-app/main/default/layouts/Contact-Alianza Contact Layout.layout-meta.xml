@@ -235,22 +235,7 @@
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
-    <layoutSections>
-        <customLabel>true</customLabel>
-        <detailHeading>true</detailHeading>
-        <editHeading>false</editHeading>
-        <label>Emails</label>
-        <layoutColumns>
-            <layoutItems>
-                <height>200</height>
-                <page>i__aaContactSnippet</page>
-                <showLabel>false</showLabel>
-                <showScrollbars>false</showScrollbars>
-                <width>100%</width>
-            </layoutItems>
-        </layoutColumns>
-        <style>OneColumn</style>
-    </layoutSections>
+
     <miniLayout>
         <fields>Name</fields>
         <fields>Title</fields>
@@ -283,12 +268,7 @@
             </layoutItem>
         </relatedContentItems>
     </relatedContent>
-    <relatedLists>
-        <fields>Affiliated_Description__c</fields>
-        <fields>Affiliated_Account__c</fields>
-        <fields>Affiliation_Type__c</fields>
-        <relatedList>Affiliation__c.Contact__c</relatedList>
-    </relatedLists>
+
     <relatedLists>
         <fields>CAMPAIGN.NAME</fields>
         <fields>Type_of_participant__c</fields>
@@ -318,10 +298,7 @@
         <fields>NAME</fields>
         <relatedList>Observership__c.Applicant__c</relatedList>
     </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <relatedList>Replica__c.Replica__c</relatedList>
-    </relatedLists>
+
     <relatedLists>
         <relatedList>RelatedNoteList</relatedList>
     </relatedLists>
