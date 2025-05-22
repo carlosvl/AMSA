@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Affiliation_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Affiliation Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Board Membership</fullName>
+                <default>false</default>
+                <label>Board Membership</label>
+            </value>
+            <value>
+                <fullName>Business Acquaintance</fullName>
+                <default>false</default>
+                <label>Business Acquaintance</label>
+            </value>
+            <value>
+                <fullName>Business Associates</fullName>
+                <default>false</default>
+                <label>Business Associates</label>
+            </value>
+            <value>
+                <fullName>Club</fullName>
+                <default>false</default>
+                <label>Club</label>
+            </value>
+            <value>
+                <fullName>Founder</fullName>
+                <default>false</default>
+                <label>Founder</label>
+            </value>
+            <value>
+                <fullName>Current Employer</fullName>
+                <default>false</default>
+                <label>Current Employer</label>
+            </value>
+            <value>
+                <fullName>Past Employer</fullName>
+                <default>false</default>
+                <label>Past Employer</label>
+            </value>
+            <value>
+                <fullName>Philanthropy</fullName>
+                <default>false</default>
+                <label>Philanthropy</label>
+            </value>
+            <value>
+                <fullName>Political Affiliation</fullName>
+                <default>false</default>
+                <label>Political Affiliation</label>
+            </value>
+            <value>
+                <fullName>School</fullName>
+                <default>false</default>
+                <label>School</label>
+            </value>
+            <value>
+                <fullName>Social Associates</fullName>
+                <default>false</default>
+                <label>Social Associates</label>
+            </value>
+            <value>
+                <fullName>University</fullName>
+                <default>false</default>
+                <label>University</label>
+            </value>
+            <value>
+                <fullName>Undergrad</fullName>
+                <default>false</default>
+                <label>Undergrad</label>
+            </value>
+            <value>
+                <fullName>Grad</fullName>
+                <default>false</default>
+                <label>Grad</label>
+            </value>
+            <value>
+                <fullName>Employer</fullName>
+                <default>false</default>
+                <label>Employer</label>
+            </value>
+            <value>
+                <fullName>Associations</fullName>
+                <default>false</default>
+                <label>Associations</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Mgmt Consultant</fullName>
+                <default>false</default>
+                <label>Mgmt Consultant</label>
+            </value>
+            <value>
+                <fullName>Accountant</fullName>
+                <default>false</default>
+                <label>Accountant</label>
+            </value>
+            <value>
+                <fullName>Auditor</fullName>
+                <default>false</default>
+                <label>Auditor</label>
+            </value>
+            <value>
+                <fullName>Committee</fullName>
+                <default>false</default>
+                <label>Committee</label>
+            </value>
+            <value>
+                <fullName>Consultant</fullName>
+                <default>false</default>
+                <label>Consultant</label>
+            </value>
+            <value>
+                <fullName>Custodian</fullName>
+                <default>false</default>
+                <label>Custodian</label>
+            </value>
+            <value>
+                <fullName>GP</fullName>
+                <default>false</default>
+                <label>GP</label>
+            </value>
+            <value>
+                <fullName>Investment Bank</fullName>
+                <default>false</default>
+                <label>Investment Bank</label>
+            </value>
+            <value>
+                <fullName>Legal Counsel</fullName>
+                <default>false</default>
+                <label>Legal Counsel</label>
+            </value>
+            <value>
+                <fullName>LP</fullName>
+                <default>false</default>
+                <label>LP</label>
+            </value>
+            <value>
+                <fullName>Parent Company</fullName>
+                <default>false</default>
+                <label>Parent Company</label>
+            </value>
+            <value>
+                <fullName>Private Bank</fullName>
+                <default>false</default>
+                <label>Private Bank</label>
+            </value>
+            <value>
+                <fullName>Subsidiary</fullName>
+                <default>false</default>
+                <label>Subsidiary</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

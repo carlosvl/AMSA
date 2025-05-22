@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type_of_replica__c</fullName>
+    <externalId>false</externalId>
+    <label>Type of replica</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>National or International Conferences</fullName>
+                <default>false</default>
+                <label>National or International Conferences</label>
+            </value>
+            <value>
+                <fullName>Workshops</fullName>
+                <default>false</default>
+                <label>Workshops</label>
+            </value>
+            <value>
+                <fullName>Lessons</fullName>
+                <default>false</default>
+                <label>Lessons</label>
+            </value>
+            <value>
+                <fullName>AMSA Seminars in Mexico</fullName>
+                <default>false</default>
+                <label>AMSA Seminars in Mexico</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Committee_Name__c</fullName>
+    <externalId>false</externalId>
+    <label>Committee Name</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>C4</fullName>
+                <default>false</default>
+                <label>C4</label>
+            </value>
+            <value>
+                <fullName>House Appropriations Committee</fullName>
+                <default>false</default>
+                <label>House Appropriations Committee</label>
+            </value>
+            <value>
+                <fullName>House Budget Committee</fullName>
+                <default>false</default>
+                <label>House Budget Committee</label>
+            </value>
+            <value>
+                <fullName>House Committee on Financial Services (Banking Committee)</fullName>
+                <default>false</default>
+                <label>House Committee on Financial Services (Banking Committee)</label>
+            </value>
+            <value>
+                <fullName>House Ways &amp; Means Committee</fullName>
+                <default>false</default>
+                <label>House Ways &amp; Means Committee</label>
+            </value>
+            <value>
+                <fullName>Joint Committee on Taxation</fullName>
+                <default>false</default>
+                <label>Joint Committee on Taxation</label>
+            </value>
+            <value>
+                <fullName>Joint Economic Committee</fullName>
+                <default>false</default>
+                <label>Joint Economic Committee</label>
+            </value>
+            <value>
+                <fullName>Senate Appropriations Committee</fullName>
+                <default>false</default>
+                <label>Senate Appropriations Committee</label>
+            </value>
+            <value>
+                <fullName>Senate Budget Committee</fullName>
+                <default>false</default>
+                <label>Senate Budget Committee</label>
+            </value>
+            <value>
+                <fullName>Senate Committee on Banking, Housing &amp; Urban Affairs</fullName>
+                <default>false</default>
+                <label>Senate Committee on Banking, Housing &amp; Urban Affairs</label>
+            </value>
+            <value>
+                <fullName>Senate Finance Committee</fullName>
+                <default>false</default>
+                <label>Senate Finance Committee</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
