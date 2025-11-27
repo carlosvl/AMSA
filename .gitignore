@@ -1,59 +1,17 @@
-# This file is used for Git repositories to specify intentionally untracked files that Git should ignore. 
-# If you are not using git, you can delete this file. For more information see: https://git-scm.com/docs/gitignore
-# For useful gitignore templates see: https://github.com/github/gitignore
+# Downloaded files (too large for git)
+downloaded_contact_files/
 
-# Salesforce cache
-.sf/
-.sfdx/
-.localdevserver/
-deploy-options.json
+# Large query result files (can be regenerated)
+all_files_after_aug1.json
+all_linked_files.json
 
-# LWC VSCode autocomplete
-**/lwc/jsconfig.json
-
-# LWC Jest coverage reports
-coverage/
-
-# Logs
-logs
+# Temporary files
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+upload_cli_progress.log
+upload_batched.log
+upload_full_multipart.log
 
-# Dependency directories
-node_modules/
-
-# Eslint cache
-.eslintcache
-
-# MacOS system files
+# Other large files
+*.pyc
+__pycache__/
 .DS_Store
-
-# Windows system files
-Thumbs.db
-ehthumbs.db
-[Dd]esktop.ini
-$RECYCLE.BIN/
-
-# Local environment variables
-.env
-
-# Python Salesforce Functions
-**/__pycache__/
-**/.venv/
-**/venv/
-.prettierrc
-jest.config.js
-package.json
-README.md
-sfdx-project.json
-.husky/pre-commit
-.vscode/extensions.json
-.vscode/launch.json
-.vscode/settings.json
-config/project-scratch-def.json
-force-app/main/default/aura/.eslintrc.json
-force-app/main/default/lwc/.eslintrc.json
-scripts/apex/hello.apex
-scripts/soql/account.soql
