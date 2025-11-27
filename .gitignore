@@ -1,17 +1,41 @@
-# Downloaded files (too large for git)
-downloaded_contact_files/
+# Salesforce DX
+.sfdx/
+.sf/
+.localdevserver/
+
+# LWC VSCode autocomplete
+**/.eslintcache
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Downloaded attachments (too large for git)
+attachments-migration/downloaded_contact_files/
 
 # Large query result files (can be regenerated)
 all_files_after_aug1.json
 all_linked_files.json
 
-# Temporary files
+# Temporary log files
 *.log
 upload_cli_progress.log
 upload_batched.log
 upload_full_multipart.log
 
-# Other large files
+# Python
 *.pyc
 __pycache__/
-.DS_Store

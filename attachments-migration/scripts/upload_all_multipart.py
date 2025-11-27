@@ -129,19 +129,20 @@ def wait_for_content_document(access_token, instance_url, content_version_id, ma
 
 def load_progress():
     """Load progress from previous run"""
-    if os.path.exists('upload_progress_multipart.json'):
-        with open('upload_progress_multipart.json', 'r') as f:
+    progress_file = '../results/upload_progress_multipart.json'
+    if os.path.exists(progress_file):
+        with open(progress_file, 'r') as f:
             return json.load(f)
     return {'completed': {}, 'failed': {}}
 
 def save_progress(progress):
     """Save progress"""
-    with open('upload_progress_multipart.json', 'w') as f:
+    with open('../results/upload_progress_multipart.json', 'w') as f:
         json.dump(progress, f, indent=2)
 
 def main():
     org_alias = 'AMSA Prod'
-    files_dir = 'downloaded_contact_files'
+    files_dir = '../downloaded_contact_files'
     batch_size = 50
     batch_delay = 5  # seconds between batches
     
@@ -161,10 +162,10 @@ def main():
     print(f"✅ Connected to: {instance_url}\n")
     
     # Load data
-    with open('contact_file_versions_enriched.json', 'r') as f:
+    with open('../data/contact_file_versions_enriched.json', 'r') as f:
         file_versions = json.load(f)
     
-    with open('contact_id_mapping.json', 'r') as f:
+    with open('../data/contact_id_mapping.json', 'r') as f:
         id_mapping = json.load(f)
     
     # Load progress
@@ -332,14 +333,14 @@ def main():
     print(f"{'='*80}\n")
     
     # Save final results
-    with open('upload_results_multipart_final.json', 'w') as f:
+    with open('../results/upload_results_multipart_final.json', 'w') as f:
         json.dump(results, f, indent=2)
     
-    print(f"📄 Results: upload_results_multipart_final.json")
-    print(f"📄 Progress: upload_progress_multipart.json")
+    print(f"📄 Results: ../results/upload_results_multipart_final.json")
+    print(f"📄 Progress: ../results/upload_progress_multipart.json")
     
     # Create summary report
-    with open('upload_summary_final.txt', 'w') as f:
+    with open('../results/upload_summary_final.txt', 'w') as f:
         f.write(f"Contact Files Upload - FINAL SUMMARY\n")
         f.write(f"{'='*80}\n\n")
         f.write(f"Organization: AMSA Prod\n")
@@ -367,7 +368,7 @@ def main():
                 f.write(f"❌ {title}\n")
                 f.write(f"   Reason: {data['reason']}\n\n")
     
-    print(f"📄 Summary report: upload_summary_final.txt\n")
+    print(f"📄 Summary report: ../results/upload_summary_final.txt\n")
     
     if results['uploaded'] > 0:
         print(f"🎉 SUCCESS! {results['uploaded']} files uploaded and linked to contacts!")

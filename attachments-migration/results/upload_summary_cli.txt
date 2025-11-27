@@ -1,0 +1,562 @@
+File Upload Summary (CLI Method) - AMSA Prod
+================================================================================
+
+Total Files: 186
+Successfully Uploaded: 0
+Skipped (no mapping): 1
+Skipped (file issues): 4
+Failed Upload: 52
+Failed Link: 129
+
+================================================================================
+Successfully Uploaded Files:
+================================================================================
+
+
+================================================================================
+Failed Uploads:
+================================================================================
+
+❌ DIPLOMA - OMI Global Health 2025 Pandemics - Ríos Velasco, Fernando Ortega
+   Reason: ContentDocument not found after retries
+
+❌ INVITATION LETTER - OMI Pediatric Palliative Care 2026 - Hernandez, Zayra
+   Reason: ContentDocument not found after retries
+
+❌ REJECTION EMAIL - OMI Pediatric Allergy 2026 - Perea Valle, Pablo
+   Reason: ContentDocument not found after retries
+
+❌ CERTIFICATE - OMI Public Health Strategy 2025 - Valdez, Jorge
+   Reason: ContentDocument not found after retries
+
+❌ PHOTOS - OMI Pediatric Neurology 2025 - Guerra, Cynthia
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ INTERVIEW NOTES - OMI Neurology 2026 - Alexandra Diaz Alba
+   Reason: ContentDocument not found after retries
+
+❌ AVISO PRIVACIDAD - OMI Lipid Metabolism 2026 - Najera Martínez, Francisco
+   Reason: ContentDocument not found after retries
+
+❌ COMPROMISO VUELO - OMI Lipid Metabolism 2026 - Najera Martínez, Francisco
+   Reason: ContentDocument not found after retries
+
+❌ RECOMENDATION LETTER 2 - OMI Family Medicine 2026 - Rivera Avila, Dulce Adelaida
+   Reason: ContentDocument not found after retries
+
+❌ INTERVIEW NOTES - OMI Dermatology 2026 - Sofia Carreño
+   Reason: ContentDocument not found after retries
+
+❌ AVISO PRIVACIDAD - OMI Internal Medicine 2026 - Gonzales, Rubén Alejandro
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ Diploma Medico general
+   Reason: ContentDocument not found after retries
+
+❌ TITULO ESPECIALIDAD PEDRO
+   Reason: ContentDocument not found after retries
+
+❌ DAMIAN JUAREZ (2)
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ CAIO CITATINI DE CAMPOS (2)
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ ALEJANDRO DAVID MACIEL MOGUEL (2)
+   Reason: ContentDocument not found after retries
+
+❌ COMPROMISO DE VUELO - OMI Pediatric Hematology and Oncology - Hernandez Campos, Jorge Armando
+   Reason: ContentDocument not found after retries
+
+❌ PASAPORTE - OMI Pediatric Allergy 2026 - Ubera, Valeria
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ COMPROMISO REPLICA - OMI Otolaryngology 2026 - Olaya Albot, Karla Rubi
+   Reason: ContentDocument not found after retries
+
+❌ diploma
+   Reason: ContentDocument not found after retries
+
+❌ Resume English
+   Reason: ContentDocument not found after retries
+
+❌ diploma
+   Reason: ContentDocument not found after retries
+
+❌ CV
+   Reason: ContentDocument not found after retries
+
+❌ WhatsApp Image 2025-10-01 at 6.49.06 AM (2)
+   Reason: ContentDocument not found after retries
+
+❌ Titulo Especialidad
+   Reason: ContentDocument not found after retries
+
+❌ INTERVIEW NOTES - OMI Pediatric Allergy 2026 - Castell Toledo, Marisa
+   Reason: ContentDocument not found after retries
+
+❌ foto
+   Reason: ContentDocument not found after retries
+
+❌ TITULO 2 - Ubera, Valeria
+   Reason: ContentDocument not found after retries
+
+❌ titulo LETICIA
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ DIPLOMA LETICIA
+   Reason: ContentDocument not found after retries
+
+❌ WEEKLY UPDATE - Week 0 in Vienna - OMI Observership Neurosurgery Research 2025 - Uribe Pacheco, Rodrigo
+   Reason: ContentDocument not found after retries
+
+❌ CV María José Errázuriz K Septiembre 2025
+   Reason: ContentDocument not found after retries
+
+❌ foto
+   Reason: ContentDocument not found after retries
+
+❌ Diploma especialidad medicina interna
+   Reason: ContentDocument not found after retries
+
+❌ Pergamino Medico General
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ foto
+   Reason: ContentDocument not found after retries
+
+❌ Titulo neumopedia Luis Angel Sarmiento
+   Reason: ContentDocument not found after retries
+
+❌ La Universidad La Salle 1
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ Diploma 2 Nayeli
+   Reason: ContentDocument not found after retries
+
+❌ Titulo doctorado
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ PUBLICATIONS
+   Reason: ContentDocument not found after retries
+
+❌ 2d5751c7-fd45-448d-b73c-91a977f553af
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ Curriculum - Angelica Sandoval
+   Reason: ContentDocument not found after retries
+
+❌ COMPROMISO DE VUELO - OMI Infectious Disease - Bastida Hernández, Karina
+   Reason: ContentDocument not found after retries
+
+❌ nancyantoniamartinezpablotituloespecialidadfrontal (1)
+   Reason: ContentDocument not found after retries
+
+❌ CV - Diana Cortes Victoria
+   Reason: ContentDocument not found after retries
+
+❌ foto
+   Reason: ContentDocument not found after retries
+
+❌ CV
+   Reason: ContentDocument not found after retries
+
+❌ COMPROMISO DE REPLICA - OMI Rehabilitation Medicine 2026 - Alfaro Barbosa, Martha
+   Reason: ContentDocument not found after retries
+
+❌ COMPROMISO REPLICA - OMI Pathology 2026 - Rodríguez Orihuela, Diana Lizbeth
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ TITULO 2 - Rodríguez Orihuela, Diana Lizbeth
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ INTERVIEW NOTES - OMI Infectious Disease - Bastida Hernández, Karina
+   Reason: ContentDocument not found after retries
+
+❌ FELICIA PARRA
+   Reason: ContentDocument not found after retries
+
+❌ CV Jesus Cruz
+   Reason: ContentDocument not found after retries
+
+❌ CURRICULUM VITAE
+   Reason: ContentDocument not found after retries
+
+❌ CN ANDREA
+   Reason: ContentDocument not found after retries
+
+❌ LEONARDO DAVID ESTRADA MAYORIANO (2)
+   Reason: ContentDocument not found after retries
+
+❌ NIZA CRISTERNA TOVAR (2)
+   Reason: ContentDocument not found after retries
+
+❌ CARTA DE AVISO DE PRIVACIDAD - OMI Pediatric Allergy 2026 - Arce, Emmanuel
+   Reason: ContentDocument not found after retries
+
+❌ TESTIMONIO - OMI Neurosurgery 2025- Muñuzuri Camacho, Marco Antonio
+   Reason: ContentDocument not found after retries
+
+❌ PHOTO - OMI Neurosurgery 2025- Muñuzuri Camacho, Marco Antonio
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ TESTIMONY - OMI Neurosurgery (Spine) 2025 - Hernandez Hernandez, Alan
+   Reason: ContentDocument not found after retries
+
+❌ PLAN REPLICA - OMI Neurosurgery (Spine) 2025 - Hernandez Hernandez, Alan
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ PHOTO - OMI Neurosurgery (Spine) 2025 - Hernandez Hernandez, Alan
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ foto
+   Reason: ContentDocument not found after retries
+
+❌ Profile Photo
+   Reason: ContentDocument not found after retries
+
+❌ Academic Diploma
+   Reason: ContentDocument not found after retries
+
+❌ REPLICA EVIDENCE 2 - OMI Neurología 2019 - García Santos, Raúl Anwar
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ TITULO CARDIOCIRUGIA
+   Reason: ContentDocument not found after retries
+
+❌ CV  STS
+   Reason: ContentDocument not found after retries
+
+❌ titulo  (1)
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ AVISO PRIVACIDAD, COMPROMISO REPLICA, COMPROMISO VUELO - OMI Otology and Temporal Bone Surgery 2026 - Naranjo, Karen
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ CARTA COMPROMISO DE VUELO - OMI Dermatology 2026 - Copado Álvarez, Daniela Alejandra
+   Reason: ContentDocument not found after retries
+
+❌ Martha Vargas Celis (2)
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ Daniel Romero Enríquez (2)
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ María José Mulás Torres (2)
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ Constancia IPA 2025
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ CEDULA MEDICINA FRONTAL
+   Reason: ContentDocument not found after retries
+
+❌ premio arturo aparicio
+   Reason: ContentDocument not found after retries
+
+❌ Curriculum Vitae
+   Reason: ContentDocument not found after retries
+
+❌ TITULO-2
+   Reason: ContentDocument not found after retries
+
+❌ INTERVIEW NOTES - OMI Dermatology 2026 - Llamas Rodríguez, Giselle Sinaí
+   Reason: ContentDocument not found after retries
+
+❌ CERTIFICATES - OMI Psychosocial Oncology 2025 - Goldbard Rochman, Daniela
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ FOTO - Urias Rosas, Rubí Patricia
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ JMS_1719 Irvin Molina
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ JMS_1640 Sofía Arroyo
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ JMS_1617 Paula Alfaro
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ FOTO - Hernández Martínez, Laura Cristina
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ 027-220925 Adriana García
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ 034-220925 Cecilia Villanueva
+   Reason: ContentDocument not found after retries
+
+❌ Title English Marian
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ Diploma IMSS neuro
+   Reason: ContentDocument not found after retries
+
+❌ Factura Lufthansa Itzel Rios Olivares XML_COMPROBANTE_4_0
+   Reason: ContentDocument not found after retries
+
+❌ PHOTO - Wutto Alvardo, Susy
+   Reason: ContentDocument not found after retries
+
+❌ TÍTUTLO 2 - Wuotto Alvarado, Susy
+   Reason: ContentDocument not found after retries
+
+❌ REPLICA EVIDENCE - OMI Infectious Diseases 2022 - Velarde Pineda, Ana
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ REPLICA PROJECT - OMI Neurosurgery (Spine) 2025 - Sangrador Deitos, Marcos
+   Reason: ContentDocument not found after retries
+
+❌ currículum vitae
+   Reason: ContentDocument not found after retries
+
+❌ foto
+   Reason: ContentDocument not found after retries
+
+❌ CV - Lizette Ortega jul 2025
+   Reason: ContentDocument not found after retries
+
+❌ Hoja de vida Fernanda Argote 2024(1)
+   Reason: ContentDocument not found after retries
+
+❌ TITULO DE MEDICINA PAMELA JIMENEZ
+   Reason: ContentDocument not found after retries
+
+❌ CV Pamela Maria Jimenez
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ VISA - Rayas, Yasser
+   Reason: ContentDocument not found after retries
+
+❌ título de medicina
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ INTERVIEW NOTS - OMI Neurosurgery (Spine) - Carius Estrada, Louis Valéry
+   Reason: ContentDocument not found after retries
+
+❌ CÉDULA PEDIATRÍA
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ foto
+   Reason: ContentDocument not found after retries
+
+❌ Denysse Reyes
+   Reason: ContentDocument not found after retries
+
+❌ PHOTO 2 - Velarde Pineda, Ana Alica
+   Reason: ContentDocument not found after retries
+
+❌ titulo
+   Reason: ContentDocument not found after retries
+
+❌ Curriculum vitae MFRV
+   Reason: ContentDocument not found after retries
+
+❌ INTERVIEW NOTES - OMI Pediatric Endocrinology 2026 -  Rayas Bañuelos, Yasser Eduardo
+   Reason: ContentDocument not found after retries
+
+❌ REPLICA - OMI Psychosocial Oncology 2025 - Padilla Soto, Andrea
+   Reason: ContentDocument not found after retries
+
+❌ CV
+   Reason: ContentDocument not found after retries
+
+❌ foto
+   Reason: ContentDocument not found after retries
+
+❌ DIPLOMA, PHOTOS, TESTIMONY, REPLICA EVIDENCE - OMI Economic Evaluation 2025 - Torres Valdez, Sofia Selene
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ TITULO ESPECIALIDAD SARA GONZALEZ
+   Reason: ContentDocument not found after retries
+
+❌ DIPLOMA - OMI Palliative Care 2025 - Zavaleta, Héctor
+   Reason: ContentDocument not found after retries
+
+❌ COMPROMISO DE VUELO - OMI Obstetrics and Gynecology 2026 - González de la Mora, Victor Manuel
+   Reason: ContentDocument not found after retries
+
+❌ TÍTULO  - Díaz Ríos, Marilisa Ivana
+   Reason: ContentDocument not found after retries
+
+❌ Curriculum Vitae
+   Reason: ContentDocument not found after retries
+
+❌ Captura de pantalla 2025-08-22 a la(s) 21.11.51
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ DIPLOMA LEONARDO ESTRADA MEDICINA. Copy
+   Reason: ContentDocument not found after retries
+
+❌ FOTO
+   Reason: ContentDocument not found after retries
+
+❌ Diploma
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ CV English
+   Reason: ContentDocument not found after retries
+
+❌ TÍTULO - Pastor Sifuentes, Francisco
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ PASAPORTE - Dominguez Dominguez, Laura Gabriela
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ COMPROMISO VUELO - OMI Family Medicine 2026 - Dominguez Dominguez, Laura Gabriela
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ INTERVIEW GUIDELINES - OMI Anesthesiology and Intensive Care 2026 - (IMSS) Tlacaelel López Moctezuma, Miguel Ignacio
+   Reason: ContentDocument not found after retries
+
+❌ INTERVIEW NOTES - OMI Internal Medicine 2026 - Flores Morales, Laura de los Ángeles
+   Reason: ContentDocument not found after retries
+
+❌ Xiomy Antonella Ruiz Tinco_2
+   Reason: ContentDocument not found after retries
+
+❌ María Dolores Alcacio Camelo_1
+   Reason: ContentDocument not found after retries
+
+❌ Javier González Quesada_1
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ Angelica Azucena Soto Carvajal_1
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ MONSERRAT MARTINEZ ZAMORANO (2)
+   Reason: ContentDocument not found after retries
+
+❌ LAURA NANCY GUERRA TAMEZ (2)
+   Reason: ContentDocument not found after retries
+
+❌ ALEJANDRA KIM CUBA NOGALES (2)
+   Reason: ContentDocument not found after retries
+
+❌ VLADIMIR JOSE MASSARO (2)
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ LUIS GERARDO VAZQUEZ VILLAREAL (2)
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ JAVIER VELIZ (2)
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ IVAN VALDEZ (2)
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ FABIOLA GALLEGOS
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ AZUCENA SANCHEZ (2)
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ INTERVIEW GUIDELINES - OMI Economic Evaluation in Healthcare 2026 - Bayardo López, Luis Hector
+   Reason: ContentDocument not found after retries
+
+❌ PAULA FERRARI
+   Reason: ContentDocument not found after retries
+
+❌ ERIKA SOSA CRUZ (2)
+   Reason: ContentDocument not found after retries
+
+❌ CECILIA SANCHEZ BAÑUELOS (2)
+   Reason: ContentDocument not found after retries
+
+❌ 074-240325
+   Reason: ContentDocument not found after retries
+
+❌ 049-240325 Fabián Correa
+   Reason: ContentDocument not found after retries
+
+❌ PHOTO - Estrada Gómez, Cyntia
+   Reason: ContentDocument not found after retries
+
+❌ REPLICA SEMINAR - Award winners - OMI MEX Neurology 2025 - Marquez Romero, Juan Manuel
+   Reason: ContentDocument not found after retries
+
+❌ Paraquat_Poisoning_in_a_Female_in_the_Fourth_Decad
+   Reason: ContentDocument not found after retries
+
+❌ foto
+   Reason: ContentDocument not found after retries
+
+❌ VISA  - Ramírez Díaz, Karla Adriana
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ PASAPORTE - Partida Ortega, Alma Belen
+   Reason: ContentDocument not found after retries
+
+❌ COMPROMISO DE REPLICA - OMI Trauma and Emergency Surgery 2026 - Santos Manzur, Adriana
+   Reason: ContentDocument not found after retries
+
+❌ 9. TITULO ESPECIALIDAD
+   Reason: ContentDocument not found after retries
+
+❌ CV - Ramírez Díaz, Karla Adriana
+   Reason: ContentDocument not found after retries
+
+❌ TITULO 2 - Ramírez Díaz, Karla Adriana
+   Reason: ContentDocument not found after retries
+
+❌ TITULO
+   Reason: ContentDocument not found after retries
+
+❌ Documentos Ernesto Taveras  (1)_101301
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ diploma pediatra
+   Reason: ContentDocument not found after retries
+
+❌ TITULO ESPECIALIDAD DRA KARLA MALDONADO FLORES
+   Reason: ContentDocument not found after retries
+
+❌ TARJETA DE PRESENTACIÓN - Chi Lem, Georgina
+   Reason: ContentDocument not found after retries
+
+❌ TÍTULO 2 - Partida Ortega, Alma Belen
+   Reason: ContentDocument not found after retries
+
+❌ Publication list
+   Reason: ContentDocument not found after retries
+
+❌ foto
+   Reason: ContentDocument not found after retries
+
+❌ FOTO - Romero Seguro, Sergio Andrés
+   Reason: [Errno 7] Argument list too long: 'sf'
+
+❌ FOTO - de Icaza Benet, Karen
+   Reason: ContentDocument not found after retries
+
+❌ CV Julieta Montserrat
+   Reason: ContentDocument not found after retries
+
+❌ CV Mariana herrera Garcia
+   Reason: ContentDocument not found after retries
+
+❌ TITULO MEDICO GENERAL
+   Reason: ContentDocument not found after retries
+
+❌ Curriculum Vitae nuevo
+   Reason: ContentDocument not found after retries
+
+❌ CV ANA GABRIELA
+   Reason: ContentDocument not found after retries
+
+❌ TITULO FRENTE
+   Reason: ContentDocument not found after retries
+
+❌ TÍTULO 2 - Cerrillo Miranda, Militza
+   Reason: ContentDocument not found after retries
+
+❌ DiplomaMF
+   Reason: ContentDocument not found after retries
+
+❌ CV - Álvarez Montero, Fabiola
+   Reason: ContentDocument not found after retries
+
+❌ DIPLOMAS - Ruiz Tinoco, Xiomy Antonella
+   Reason: [Errno 7] Argument list too long: 'sf'
+

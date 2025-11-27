@@ -150,7 +150,7 @@ def verify_file_linked(access_token, instance_url, content_doc_id, contact_id):
 
 def main():
     org_alias = 'AMSA Prod'
-    files_dir = 'downloaded_contact_files'
+    files_dir = '../downloaded_contact_files'
     test_count = 3
     
     print(f"🧪 TEST UPLOAD - Multipart Method")
@@ -166,10 +166,10 @@ def main():
     print(f"✅ Connected to: {instance_url}\n")
     
     # Load data
-    with open('contact_file_versions_enriched.json', 'r') as f:
+    with open('../data/contact_file_versions_enriched.json', 'r') as f:
         file_versions = json.load(f)
     
-    with open('contact_id_mapping.json', 'r') as f:
+    with open('../data/contact_id_mapping.json', 'r') as f:
         id_mapping = json.load(f)
     
     # Get test files (first 3 that have mapping and exist)
@@ -309,10 +309,10 @@ def main():
     print(f"\n{'='*80}")
     
     # Save results
-    with open('test_upload_results.json', 'w') as f:
+    with open('../results/test_upload_results.json', 'w') as f:
         json.dump(results, f, indent=2)
     
-    print(f"📄 Results saved to: test_upload_results.json")
+    print(f"📄 Results saved to: ../results/test_upload_results.json")
     
     if len(successful) > 0:
         print(f"\n✅ TEST PASSED! Multipart upload works!")

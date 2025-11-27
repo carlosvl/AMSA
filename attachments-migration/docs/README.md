@@ -1,11 +1,46 @@
 # Contact Attachments Migration - AMSA Orgs
 
 ## Overview
-This repository contains scripts and documentation for migrating Contact-related file attachments from **AMSA-Royalty-Prod** to **AMSA Prod** org, with proper Contact mapping using the `ExternalID__c` field.
+This folder contains scripts and documentation for migrating Contact-related file attachments from **AMSA-Royalty-Prod** to **AMSA Prod** org, with proper Contact mapping using the `ExternalID__c` field.
 
 **Date:** November 27, 2025  
 **Status:** ✅ Successfully completed - 181 files migrated  
 **Success Rate:** 100% for files with valid Contact mappings
+
+---
+
+## 📁 Folder Structure
+
+```
+attachments-migration/
+├── docs/                          # Documentation
+│   └── README.md                  # This file
+├── scripts/                       # Python scripts
+│   ├── download_contact_files.py  # Downloads from source org
+│   ├── upload_all_multipart.py    # Main upload script (WORKING)
+│   ├── test_multipart_upload.py   # Test/validation script
+│   ├── upload_batched.py          # Failed attempt (CLI batched)
+│   ├── upload_files_to_amsa_prod.py  # Failed attempt (urllib)
+│   └── upload_with_cli.py         # Failed attempt (SF CLI)
+├── data/                          # Data files and mappings
+│   ├── contact_id_mapping.json    # Contact ID mappings (old → new)
+│   ├── contact_file_versions_enriched.json  # File metadata
+│   ├── original_contacts_with_email.json    # Source org contacts
+│   ├── amsa_prod_contacts.json    # Target org contacts
+│   └── unmapped_contacts.json     # Contacts without mapping
+├── queries/                       # SOQL queries
+│   ├── query_original_contacts.soql
+│   ├── query_amsa_prod_contacts.soql
+│   └── query_amsa_prod_by_email.soql
+├── results/                       # Results and logs
+│   ├── upload_results_multipart_final.json  # Final upload results
+│   ├── upload_summary_final.txt   # Human-readable summary
+│   ├── upload_progress_multipart.json  # Progress tracker
+│   ├── test_upload_results.json   # Test results
+│   └── download_summary.txt       # Download summary
+└── downloaded_contact_files/      # Downloaded attachments (gitignored)
+    └── [174 files, 197 MB]
+```
 
 ---
 
@@ -42,23 +77,6 @@ Based on [Appiphony's blog](https://appiphony.com/blog/contentdocument-contentve
 
 ---
 
-## 📁 Project Structure
-
-```
-AMSA/
-├── downloaded_contact_files/          # Downloaded attachments (197 MB, 174 files)
-├── download_contact_files.py          # Script to download from source org
-├── upload_all_multipart.py            # Main upload script (WORKING METHOD)
-├── test_multipart_upload.py           # Test script (validates approach)
-├── contact_file_versions_enriched.json  # File metadata with Contact IDs
-├── contact_id_mapping.json            # Contact ID mapping (old -> new)
-├── upload_progress_multipart.json     # Progress tracker
-├── upload_results_multipart_final.json # Final results
-└── upload_summary_final.txt           # Human-readable summary
-```
-
----
-
 ## 🚀 How to Use These Scripts
 
 ### Prerequisites
@@ -75,24 +93,26 @@ python3 --version
 
 ### Step 1: Download Files from Source Org
 ```bash
+cd attachments-migration/scripts
 python3 download_contact_files.py
 ```
 **What it does:**
 - Queries ContentDocumentLinks for Contact-linked files
 - Filters by creation date (after 8/1/25)
-- Downloads to `downloaded_contact_files/`
-- Creates `contact_file_versions.json`
+- Downloads to `../downloaded_contact_files/`
+- Creates file metadata in `../data/`
 
 ### Step 2: Map Contact IDs
 The scripts automatically:
 1. Query source org Contacts for Email addresses
 2. Query target org Contacts by `ExternalID__c` (primary) and Email (secondary)
-3. Create `contact_id_mapping.json`
+3. Create `contact_id_mapping.json` in `../data/`
 
 This achieved **99.4% mapping success** (154/155 contacts)
 
 ### Step 3: Test Upload (Recommended)
 ```bash
+cd attachments-migration/scripts
 python3 test_multipart_upload.py
 ```
 Tests with 3 files to verify:
@@ -103,6 +123,7 @@ Tests with 3 files to verify:
 
 ### Step 4: Full Upload
 ```bash
+cd attachments-migration/scripts
 python3 upload_all_multipart.py
 ```
 **Features:**
@@ -110,7 +131,7 @@ python3 upload_all_multipart.py
 - 5-second delay between batches
 - Progress tracking (resume on failure)
 - Auto-skips completed files
-- Creates summary reports
+- Creates summary reports in `../results/`
 
 **Output:**
 ```
@@ -211,7 +232,7 @@ time.sleep(2)   # Progressive backoff
 sf data query --query "SELECT Id, ExternalID__c, Email FROM Contact LIMIT 5" --target-org "AMSA Prod"
 
 # Fall back to Email matching
-# See: contact_id_mapping.json creation logic
+# See: data/contact_id_mapping.json creation logic
 ```
 
 ---
@@ -248,7 +269,7 @@ sf data query --query "SELECT Id, ExternalID__c, Email FROM Contact LIMIT 5" --t
 
 ### Problem: "Argument list too long"
 **Cause:** Base64 encoding file in command-line argument  
-**Solution:** Use multipart upload method (see `upload_all_multipart.py`)
+**Solution:** Use multipart upload method (see `scripts/upload_all_multipart.py`)
 
 ### Problem: Files upload but ContentDocument not found
 **Cause:** Async creation delay  
@@ -329,4 +350,3 @@ If running this process again:
 ✅ Process documented and repeatable
 
 **Status: All criteria met! 🎉**
-
