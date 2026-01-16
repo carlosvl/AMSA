@@ -39,3 +39,11 @@ upload_full_multipart.log
 # Python
 *.pyc
 __pycache__/
+
+# Data migration results and temporary files
+data-migration-tools/results/
+data-migration-tools/data/
+duplicate_report_*.csv
+
+# Config files with credentials
+config.json
