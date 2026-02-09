@@ -1,0 +1,233 @@
+================================================================================
+CONTACT COMPARISON REPORT
+================================================================================
+
+Source Org: AMSA-Royalty-Prod
+Target Org: AMSA Prod
+Date Range: 2025-06-01 to 2025-08-30
+Report Date: 2025-11-27 09:29:15
+
+================================================================================
+SUMMARY
+================================================================================
+Total Source Contacts: 282
+✅ Matched (ExternalID__c): 7 (2.5%)
+✅ Matched (Email): 271 (96.1%)
+❌ Not Matched: 4 (1.4%)
+📊 Overall Match Rate: 98.6%
+
+================================================================================
+MATCHED BY ExternalID__c (7 contacts)
+================================================================================
+
+✅ Emma Guadalupe Fajardo Zubieta
+   Source ID: 003UG00000T3K9eYAF
+   Target ID: 003Pm000015hCciIAE
+   Email: efajardo2@icloud.com
+   Created: 2025-08-08T17:54:59.000+0000
+
+✅ Héctor Hernández Primero
+   Source ID: 003UG00000SozHuYAJ
+   Target ID: 003Pm000015hCchIAE
+   Email: hernandezprimerohector@gmail.com
+   Created: 2025-08-04T19:22:58.000+0000
+
+✅ Fernanda Del Rocío Delgado Cuevas
+   Source ID: 003UG00000SeueVYAR
+   Target ID: 003Pm000015hCcgIAE
+   Email: fdrdc.10@gmail.com
+   Created: 2025-07-31T19:37:43.000+0000
+
+✅ Mariano Gómez Santana
+   Source ID: 003UG00000SWwjxYAD
+   Target ID: 003Pm000015hCcfIAE
+   Email: anatnas0012@gmail.com
+   Created: 2025-07-29T17:24:10.000+0000
+
+✅ Luis Guillermo Martínez Domínguez
+   Source ID: 003UG00000SMwZuYAL
+   Target ID: 003Pm000015hCceIAE
+   Email: luis.g.martinez.mx@gmail.com
+   Created: 2025-07-25T20:39:20.000+0000
+
+✅ Cristina Torres Mora
+   Source ID: 003UG00000S1LdOYAV
+   Target ID: 003Pm000015hCcdIAE
+   Email: torrescristina634@gmail.com
+   Created: 2025-07-18T20:24:21.000+0000
+
+✅ Héctor Spinola Maroño
+   Source ID: 003UG00000RewXHYAZ
+   Target ID: 003Pm000015hCccIAE
+   Email: hector.spinola@innn.edu.mx
+   Created: 2025-07-11T17:39:24.000+0000
+
+================================================================================
+MATCHED BY EMAIL (271 contacts)
+================================================================================
+
+✅ Ulises Sandoval Trinidad
+   Source ID: 003UG00000U6UexYAF
+   Target ID: 003Pm00000vLzk8IAC
+   Email: sandoval.t.ulises@gmail.com
+   Target ExternalID__c: None
+   Created: 2025-08-29T16:32:34.000+0000
+
+✅ Karina Solís Labastida
+   Source ID: 003UG00000U3STAYA3
+   Target ID: 003Pm00000vLzk7IAC
+   Email: kas_anastacia@yahoo.com
+   Target ExternalID__c: None
+   Created: 2025-08-28T18:35:31.000+0000
+
+✅ Rocio Ocadiz
+   Source ID: 003UG00000U0eAhYAJ
+   Target ID: 003Pm00000vLx97IAC
+   Email: direccion.sp@fahho.mx
+   Target ExternalID__c: None
+   Created: 2025-08-28T01:38:19.000+0000
+
+✅ Evelyn Luna
+   Source ID: 003UG00000U0aLcYAJ
+   Target ID: 003Pm00000vLx96IAC
+   Email: eventos.sp@fahho.mx
+   Target ExternalID__c: None
+   Created: 2025-08-28T01:36:30.000+0000
+
+✅ Rocío Arely Salazar Castañon
+   Source ID: 003UG00000TzRQnYAN
+   Target ID: 003Pm00000vLcA0IAK
+   Email: rocio.salazar@udem.edu
+   Target ExternalID__c: None
+   Created: 2025-08-27T17:51:16.000+0000
+
+✅ Martín Alejandro Flores Méndez
+   Source ID: 003UG00000TzGvKYAV
+   Target ID: 003Pm00000vM16fIAC
+   Email: marlex7@hotmail.com
+   Target ExternalID__c: None
+   Created: 2025-08-27T17:40:49.000+0000
+
+✅ Karen Lucero Gómez Salazar
+   Source ID: 003UG00000Tr6wIYAR
+   Target ID: 003Pm00000vM16eIAC
+   Email: karengomsa.2@gmail.com
+   Target ExternalID__c: None
+   Created: 2025-08-25T17:52:08.000+0000
+
+✅ Karla Adriana Ramírez Díaz
+   Source ID: 003UG00000TrDg0YAF
+   Target ID: 003Pm00000vM0TBIA0
+   Email: rmzkard49@gmail.com
+   Target ExternalID__c: None
+   Created: 2025-08-25T17:51:34.000+0000
+
+✅ Francisco Gerardo Arvizu Cobos
+   Source ID: 003UG00000Tk9xKYAR
+   Target ID: 003Pm00000vM11TIAS
+   Email: francisco.gac@gmail.com
+   Target ExternalID__c: None
+   Created: 2025-08-22T16:40:42.000+0000
+
+✅ Gerardo Tonatiuh Primo Rodríguez
+   Source ID: 003UG00000TkEs7YAF
+   Target ID: 003Pm00000vLyP4IAK
+   Email: dr.tonatiuh.primo@gmail.com
+   Target ExternalID__c: None
+   Created: 2025-08-22T16:31:33.000+0000
+
+✅ Jose Antonio Osorio Córdova
+   Source ID: 003UG00000Tk0u3YAB
+   Target ID: 003Pm00000vLyP3IAK
+   Email: drosorio_90@outlook.com
+   Target ExternalID__c: None
+   Created: 2025-08-22T16:25:46.000+0000
+
+✅ Rigoberto Domínguez Damián
+   Source ID: 003UG00000Tk2PhYAJ
+   Target ID: 003Pm00000vM16dIAC
+   Email: dr.rigoneoped@hotmail.com
+   Target ExternalID__c: None
+   Created: 2025-08-22T16:21:17.000+0000
+
+✅ Alejandra Macías Weinmann
+   Source ID: 003UG00000TjxGKYAZ
+   Target ID: 003Pm00000vLygLIAS
+   Email: amaciasweinmann@yahoo.com.mx
+   Target ExternalID__c: None
+   Created: 2025-08-22T16:08:10.000+0000
+
+✅ Daniel Ariza González
+   Source ID: 003UG00000TOsWPYA1
+   Target ID: 003Pm00000vM16cIAC
+   Email: dannyariza31@gmail.com
+   Target ExternalID__c: None
+   Created: 2025-08-15T18:08:09.000+0000
+
+✅ Ernesto Antonio Taveras
+   Source ID: 003UG00000TOqJNYA1
+   Target ID: 003Pm00000vM16VIAS
+   Email: ernesto_taveras28@hotmail.com
+   Target ExternalID__c: None
+   Created: 2025-08-15T18:07:07.000+0000
+
+✅ Luisa Fernanda Vallejo Hernández
+   Source ID: 003UG00000TOrnFYAT
+   Target ID: 003Pm00000vM13jIAC
+   Email: luvallejo@hptu.org.co
+   Target ExternalID__c: None
+   Created: 2025-08-15T18:02:32.000+0000
+
+✅ Camila López Creazzo
+   Source ID: 003UG00000TOnWlYAL
+   Target ID: 003Pm00000vM16aIAC
+   Email: cami.lopezcr@hotmail.com
+   Target ExternalID__c: None
+   Created: 2025-08-15T17:58:21.000+0000
+
+✅ Ingrid Vanesa Gil Martinez
+   Source ID: 003UG00000TOcxwYAD
+   Target ID: 003Pm00000vLxL0IAK
+   Email: vanesa.gil.m@gmail.com
+   Target ExternalID__c: None
+   Created: 2025-08-15T17:55:14.000+0000
+
+✅ Diego Andrés Cruz Acevedo
+   Source ID: 003UG00000TOjufYAD
+   Target ID: 003Pm00000vM16TIAS
+   Email: dandresdaca@hotmail.com
+   Target ExternalID__c: None
+   Created: 2025-08-15T17:49:03.000+0000
+
+✅ Daniela Beltran Rodríguez
+   Source ID: 003UG00000TOjWNYA1
+   Target ID: 003Pm00000vM0x5IAC
+   Email: danibeltran9535@gmail.com
+   Target ExternalID__c: None
+   Created: 2025-08-15T17:47:30.000+0000
+
+   ... and 251 more
+
+================================================================================
+NOT MATCHED (4 contacts)
+================================================================================
+
+❌ Eunice López Muñoz
+   Source ID: 003UG00000SpRinYAF
+   Email: No email
+   Created: 2025-08-04T20:43:26.000+0000
+
+❌ María de Jesús Vázquez	Díaz
+   Source ID: 003UG00000SozBVYAZ
+   Email: No email
+   Created: 2025-08-04T19:48:46.000+0000
+
+❌ Jorge Rísquez
+   Source ID: 003UG00000RbumrYAB
+   Email: No email
+   Created: 2025-07-10T18:45:00.000+0000
+
+❌ Aranza Viñas Jacobo
+   Source ID: 003UG00000Qkk45YAB
+   Email: No email
+   Created: 2025-06-23T22:25:32.000+0000

@@ -1,18 +1,10 @@
-# This file is used for Git repositories to specify intentionally untracked files that Git should ignore. 
-# If you are not using git, you can delete this file. For more information see: https://git-scm.com/docs/gitignore
-# For useful gitignore templates see: https://github.com/github/gitignore
-
-# Salesforce cache
-.sf/
+# Salesforce DX
 .sfdx/
+.sf/
 .localdevserver/
-deploy-options.json
 
 # LWC VSCode autocomplete
-**/lwc/jsconfig.json
-
-# LWC Jest coverage reports
-coverage/
+**/.eslintcache
 
 # Logs
 logs
@@ -20,40 +12,42 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
 
-# Dependency directories
-node_modules/
-
-# Eslint cache
-.eslintcache
-
-# MacOS system files
+# OS
 .DS_Store
-
-# Windows system files
 Thumbs.db
-ehthumbs.db
-[Dd]esktop.ini
-$RECYCLE.BIN/
 
-# Local environment variables
-.env
+# IDEs
+.vscode/
+.idea/
 
-# Python Salesforce Functions
-**/__pycache__/
-**/.venv/
-**/venv/
-.prettierrc
-jest.config.js
-package.json
-README.md
-sfdx-project.json
-.husky/pre-commit
-.vscode/extensions.json
-.vscode/launch.json
-.vscode/settings.json
-config/project-scratch-def.json
-force-app/main/default/aura/.eslintrc.json
-force-app/main/default/lwc/.eslintrc.json
-scripts/apex/hello.apex
-scripts/soql/account.soql
+# Downloaded attachments (too large for git)
+attachments-migration/downloaded_contact_files/
+
+# Large query result files (can be regenerated)
+all_files_after_aug1.json
+all_linked_files.json
+
+# Temporary log files
+*.log
+upload_cli_progress.log
+upload_batched.log
+upload_full_multipart.log
+
+# Python
+*.pyc
+__pycache__/
+
+# Data migration results and temporary files
+data-migration-tools/results/
+data-migration-tools/data/
+duplicate_report_*.csv
+
+# Backup databases and files (too large for git)
+data-migration-tools/backups/
+*.db
+
+# Config files with credentials
+config.json

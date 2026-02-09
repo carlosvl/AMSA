@@ -1,0 +1,11 @@
+{
+  "username": "your-salesforce-username@example.com",
+  "password": "your-salesforce-password",
+  "security_token": "your-security-token",
+  "domain": "login",
+  "_comment_domain": "Use 'login' for production, 'test' for sandbox",
+  "_comment_security_token": "Get your security token from Salesforce: Setup > My Personal Information > Reset My Security Token"
+}
+
+
+

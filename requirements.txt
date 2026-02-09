@@ -1,0 +1,12 @@
+# Salesforce Duplicate Remover - Python Dependencies
+
+# Salesforce API client
+simple-salesforce>=1.12.4
+
+# Optional: For better error handling and logging
+requests>=2.31.0
+
+# SOAP client library
+zeep>=4.3.0
+
+
