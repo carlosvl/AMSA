@@ -6,8 +6,11 @@ Goal: Identify Seminar_Application__c records in the target org that don't exist
 in the source org, based on the combination of Applicant__c (Contact) and
 Seminar__c (Campaign). These extra records may need to be deleted.
 
+Results are stored in SQLite database. Use --export-json or --export-csv 
+to also generate legacy file formats.
+
 Usage:
-  python3 compare_seminar_applications.py <source_org> <target_org>
+  python3 compare_seminar_applications.py <source_org> <target_org> [--export-json] [--export-csv]
 
 Example:
   python3 compare_seminar_applications.py "AMSA-Royalty-Prod" "AMSA Prod"
@@ -16,15 +19,15 @@ Example:
 import json
 import subprocess
 import sys
+import argparse
 from datetime import datetime
 from pathlib import Path
+
+import db_utils
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / 'data'
 RESULTS_DIR = BASE_DIR / 'results'
-
-CONTACT_MAPPING_PATH = DATA_DIR / 'contact_id_mapping.json'
-CAMPAIGN_MAPPING_PATH = DATA_DIR / 'campaign_id_mapping.json'
 
 
 def run_soql(org_alias: str, query: str):
@@ -55,18 +58,20 @@ def run_soql(org_alias: str, query: str):
 
 
 def load_mappings():
-    if not CONTACT_MAPPING_PATH.exists():
-        print(f"❌ Contact mapping file not found: {CONTACT_MAPPING_PATH}")
-        return None, None
-    if not CAMPAIGN_MAPPING_PATH.exists():
-        print(f"❌ Campaign mapping file not found: {CAMPAIGN_MAPPING_PATH}")
-        return None, None
-
-    contact_map = json.loads(CONTACT_MAPPING_PATH.read_text())
-    campaign_map = json.loads(CAMPAIGN_MAPPING_PATH.read_text())
-
-    print(f"📂 Loaded contact mapping:  {len(contact_map)} entries")
-    print(f"📂 Loaded campaign mapping: {len(campaign_map)} entries")
+    """Load ID mappings from database"""
+    print("📂 Loading ID mappings from database...")
+    
+    contact_map = db_utils.get_id_mappings('Contact')
+    campaign_map = db_utils.get_id_mappings('Campaign')
+    
+    print(f"  ✅ Contact mappings:  {len(contact_map)} entries")
+    print(f"  ✅ Campaign mappings: {len(campaign_map)} entries")
+    
+    if not contact_map:
+        print("  ⚠️  Warning: No contact mappings found in database")
+    if not campaign_map:
+        print("  ⚠️  Warning: No campaign mappings found in database")
+    
     return contact_map, campaign_map
 
 
@@ -281,84 +286,141 @@ def main():
     print("=" * 80)
     print()
 
-    if len(sys.argv) < 3:
-        print("❌ Missing parameters!")
-        print("\nUsage:")
-        print(
-            "  python3 compare_seminar_applications.py <source_org> <target_org>"
-        )
-        sys.exit(1)
-
-    source_org = sys.argv[1]
-    target_org = sys.argv[2]
+    # Parse arguments
+    parser = argparse.ArgumentParser(
+        description='Compare Seminar Applications between two Salesforce orgs'
+    )
+    parser.add_argument('source_org', help='Source org alias')
+    parser.add_argument('target_org', help='Target org alias')
+    parser.add_argument('--export-json', action='store_true',
+                        help='Export results to JSON file (legacy format)')
+    parser.add_argument('--export-csv', action='store_true',
+                        help='Export results to CSV file (legacy format)')
+    
+    args = parser.parse_args()
+    
+    source_org = args.source_org
+    target_org = args.target_org
 
     print("📋 Parameters:")
     print(f"  Source Org: {source_org}")
     print(f"  Target Org: {target_org}")
+    print(f"  Storage: SQLite database")
+    if args.export_json:
+        print(f"  Export: JSON enabled")
+    if args.export_csv:
+        print(f"  Export: CSV enabled")
     print()
 
-    contact_map, campaign_map = load_mappings()
-    if not contact_map or not campaign_map:
-        sys.exit(1)
-    print()
-
-    src_apps = query_all_applications(source_org)
-    tgt_apps = query_all_applications(target_org)
-
-    results = compare_applications(src_apps, tgt_apps, contact_map, campaign_map)
-
-    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    json_path = RESULTS_DIR / f'seminar_application_comparison_{timestamp}.json'
-    txt_path = RESULTS_DIR / f'seminar_application_comparison_{timestamp}.txt'
-    csv_path = RESULTS_DIR / f'seminar_application_extra_records_{timestamp}.csv'
-
-    # Save JSON
-    json_path.write_text(
-        json.dumps(
-            {
-                'metadata': {
-                    'source_org': source_org,
-                    'target_org': target_org,
-                    'timestamp': timestamp,
-                },
-                'results': results,
-            },
-            indent=2,
-        )
+    # Create database run
+    print("💾 Initializing database...")
+    run_id = db_utils.create_comparison_run(
+        run_type='seminar_application_comparison',
+        source_org=source_org,
+        target_org=target_org
     )
+    print(f"  ✅ Run ID: {run_id}")
+    print()
 
-    # Save text report
-    txt_path.write_text(generate_report(results, source_org, target_org))
+    try:
+        contact_map, campaign_map = load_mappings()
+        if not contact_map and not campaign_map:
+            db_utils.update_comparison_run(run_id, status='failed',
+                                          notes='No ID mappings found')
+            print("❌ No ID mappings found in database")
+            sys.exit(1)
+        print()
 
-    # Save CSV of extra records for easy deletion
-    if results['extra_records']:
-        import csv
-        with csv_path.open('w', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow([
-                'Id', 'Name', 'Applicant__c', 'Seminar__c', 
-                'Application_Stage__c', 'App_Date__c', 'CreatedDate'
-            ])
-            for rec in results['extra_records']:
-                writer.writerow([
-                    rec['id'],
-                    rec.get('name', ''),
-                    rec['applicant_id'],
-                    rec.get('seminar_id', ''),
-                    rec.get('stage', ''),
-                    rec.get('app_date', ''),
-                    rec.get('created_date', ''),
-                ])
-        print(f"  📄 CSV of extra records: {csv_path}")
+        src_apps = query_all_applications(source_org)
+        tgt_apps = query_all_applications(target_org)
 
-    print("=" * 80)
-    print("📄 Results saved:")
-    print(f"  - {json_path}")
-    print(f"  - {txt_path}")
-    if results['extra_records']:
-        print(f"  - {csv_path}")
-    print("=" * 80)
+        results = compare_applications(src_apps, tgt_apps, contact_map, campaign_map)
+
+        # Save matches to database
+        print("\n💾 Saving results to database...")
+        
+        # Save matched applications
+        matched_apps = []
+        for key in results.get('matched_keys', []):
+            matched_apps.append({
+                'match_status': 'matched',
+                'record_id': key
+            })
+        
+        # Save extra records (in target, not in source)
+        for rec in results['extra_records']:
+            matched_apps.append({
+                'record_id': rec['id'],
+                'applicant_id': rec['applicant_id'],
+                'seminar_id': rec.get('seminar_id'),
+                'match_status': 'extra',
+                'stage': rec.get('stage'),
+                'app_date': rec.get('app_date')
+            })
+        
+        db_utils.save_seminar_app_matches(run_id, matched_apps)
+        
+        # Update run statistics
+        db_utils.update_comparison_run(
+            run_id,
+            total_source_records=results['source_mapped_applications'],
+            total_target_records=results['target_applications'],
+            matched_count=results['matched_keys'],
+            unmatched_count=results['missing_keys'],
+            status='completed'
+        )
+        
+        print(f"  ✅ Saved {len(matched_apps)} application records")
+        
+        # Export if requested
+        if args.export_json or args.export_csv:
+            RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            
+            if args.export_json:
+                json_path = RESULTS_DIR / f'seminar_application_comparison_{timestamp}.json'
+                db_utils.export_run_to_json(run_id, json_path)
+                
+                txt_path = RESULTS_DIR / f'seminar_application_comparison_{timestamp}.txt'
+                txt_path.write_text(generate_report(results, source_org, target_org))
+                
+                print(f"  📄 Exported to JSON: {json_path}")
+                print(f"  📄 Exported report: {txt_path}")
+            
+            if args.export_csv and results['extra_records']:
+                import csv
+                csv_path = RESULTS_DIR / f'seminar_application_extra_records_{timestamp}.csv'
+                with csv_path.open('w', newline='') as f:
+                    writer = csv.writer(f)
+                    writer.writerow([
+                        'Id', 'Name', 'Applicant__c', 'Seminar__c', 
+                        'Application_Stage__c', 'App_Date__c', 'CreatedDate'
+                    ])
+                    for rec in results['extra_records']:
+                        writer.writerow([
+                            rec['id'],
+                            rec.get('name', ''),
+                            rec['applicant_id'],
+                            rec.get('seminar_id', ''),
+                            rec.get('stage', ''),
+                            rec.get('app_date', ''),
+                            rec.get('created_date', ''),
+                        ])
+                print(f"  📄 Exported to CSV: {csv_path}")
+
+        print("\n" + "=" * 80)
+        print("✅ Comparison completed successfully!")
+        print("=" * 80)
+        print(f"Run ID: {run_id}")
+        print(f"Database: {db_utils.DB_PATH}")
+        print(f"\nUse query_results.py to view results:")
+        print(f"  python3 query_results.py run-details {run_id}")
+        print("=" * 80)
+    
+    except Exception as e:
+        db_utils.update_comparison_run(run_id, status='failed',
+                                      notes=f'Error: {str(e)}')
+        raise
 
 
 if __name__ == '__main__':

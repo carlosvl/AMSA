@@ -2,11 +2,19 @@
 """
 Campaign Comparison Tool
 Compares campaigns between two Salesforce orgs using unique campaign names
+
+Results are stored in SQLite database. Use --export-json or --export-csv 
+to also generate legacy file formats.
 """
 import json
 import subprocess
 import sys
+import argparse
 from datetime import datetime
+from pathlib import Path
+
+# Import database utilities
+import db_utils
 
 def get_org_credentials(org_alias):
     """Get org details"""
@@ -291,22 +299,26 @@ def main():
     print("="*80)
     print()
     
-    # Get parameters from command line
-    if len(sys.argv) >= 4:
-        source_org = sys.argv[1]
-        target_org = sys.argv[2]
-        start_date = sys.argv[3]
-        end_date = sys.argv[4] if len(sys.argv) > 4 else None
-    else:
-        print("❌ Missing parameters!")
-        print("\nUsage:")
-        print("  python3 compare_campaigns.py <source_org> <target_org> <start_date> [end_date]")
-        print("\nExample:")
-        print("  python3 compare_campaigns.py 'AMSA-Royalty-Prod' 'AMSA Prod' '2025-01-01'")
-        print("  python3 compare_campaigns.py 'AMSA-Royalty-Prod' 'AMSA Prod' '2025-01-01' '2025-12-31'")
-        print("\nDate format: YYYY-MM-DD")
-        print("\nNote: Campaigns are matched by Name (primary) since names should be unique")
-        sys.exit(1)
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(
+        description='Compare campaigns between two Salesforce orgs',
+        epilog='Results are stored in SQLite. Use --export flags for legacy file formats.'
+    )
+    parser.add_argument('source_org', help='Source org alias')
+    parser.add_argument('target_org', help='Target org alias')
+    parser.add_argument('start_date', help='Start date (YYYY-MM-DD)')
+    parser.add_argument('end_date', nargs='?', help='End date (YYYY-MM-DD, optional)')
+    parser.add_argument('--export-json', action='store_true', 
+                        help='Export results to JSON file (legacy format)')
+    parser.add_argument('--export-csv', action='store_true',
+                        help='Export results to CSV file (legacy format)')
+    
+    args = parser.parse_args()
+    
+    source_org = args.source_org
+    target_org = args.target_org
+    start_date = args.start_date
+    end_date = args.end_date
     
     # Validate and display parameters
     print("📋 Parameters:")
@@ -316,90 +328,149 @@ def main():
     if end_date:
         print(f"  End Date: {end_date}")
     print(f"  Matching Strategy: Campaign Name (primary), ExternalID__c (secondary)")
+    print(f"  Storage: SQLite database")
+    if args.export_json:
+        print(f"  Export: JSON enabled")
+    if args.export_csv:
+        print(f"  Export: CSV enabled")
     print()
     
-    # Connect to orgs
-    print("🔐 Connecting to orgs...")
-    source_info = get_org_credentials(source_org)
-    target_info = get_org_credentials(target_org)
-    
-    if not source_info or not target_info:
-        print("\n❌ Failed to connect to one or both orgs")
-        sys.exit(1)
-    
-    print(f"  ✅ Source: {source_info['username']} ({source_info['instance_url']})")
-    print(f"  ✅ Target: {target_info['username']} ({target_info['instance_url']})")
+    # Create database run entry
+    print("💾 Initializing database...")
+    run_id = db_utils.create_comparison_run(
+        run_type='campaign_comparison',
+        source_org=source_org,
+        target_org=target_org,
+        start_date=start_date,
+        end_date=end_date
+    )
+    print(f"  ✅ Run ID: {run_id}")
     print()
     
-    # Query campaigns
-    source_campaigns = query_campaigns_from_source(source_org, start_date, end_date)
-    if not source_campaigns:
-        print("\n⚠️  No campaigns found in source org with given date range")
-        sys.exit(0)
+    try:
+        # Connect to orgs
+        print("🔐 Connecting to orgs...")
+        source_info = get_org_credentials(source_org)
+        target_info = get_org_credentials(target_org)
+        
+        if not source_info or not target_info:
+            db_utils.update_comparison_run(run_id, status='failed', 
+                                          notes='Failed to connect to orgs')
+            print("\n❌ Failed to connect to one or both orgs")
+            sys.exit(1)
+        
+        print(f"  ✅ Source: {source_info['username']} ({source_info['instance_url']})")
+        print(f"  ✅ Target: {target_info['username']} ({target_info['instance_url']})")
+        print()
     
-    target_campaigns = query_campaigns_from_target(target_org)
-    if not target_campaigns:
-        print("\n⚠️  No campaigns found in target org")
-        sys.exit(0)
+        # Query campaigns
+        source_campaigns = query_campaigns_from_source(source_org, start_date, end_date)
+        if not source_campaigns:
+            db_utils.update_comparison_run(run_id, status='completed',
+                                          total_source_records=0,
+                                          notes='No campaigns found in source org')
+            print("\n⚠️  No campaigns found in source org with given date range")
+            sys.exit(0)
+        
+        target_campaigns = query_campaigns_from_target(target_org)
+        if not target_campaigns:
+            db_utils.update_comparison_run(run_id, status='completed',
+                                          total_target_records=0,
+                                          notes='No campaigns found in target org')
+            print("\n⚠️  No campaigns found in target org")
+            sys.exit(0)
+        
+        # Compare campaigns
+        results = compare_campaigns(source_campaigns, target_campaigns)
+        
+        # Generate report
+        report_text = generate_report(results, source_org, target_org, start_date, end_date)
+        
+        # Display summary
+        print("\n" + report_text)
+        
+        # Calculate totals
+        total_source = len(source_campaigns)
+        total_target = len(target_campaigns)
+        matched = len(results['matched_by_name']) + len(results['matched_by_external_id'])
+        unmatched = len(results['not_matched'])
+        
+        # Save all matches to database
+        print("\n💾 Saving results to database...")
+        
+        all_matches = []
+        for match in results['matched_by_name']:
+            all_matches.append(match)
+        for match in results['matched_by_external_id']:
+            all_matches.append(match)
+        for match in results['name_mismatch']:
+            all_matches.append(match)
+        for match in results['not_matched']:
+            all_matches.append(match)
+        
+        db_utils.save_campaign_matches(run_id, all_matches)
+        
+        # Update ID mappings
+        campaign_mapping = {}
+        for match in results['matched_by_name']:
+            campaign_mapping[match['source_id']] = match['target_id']
+        for match in results['matched_by_external_id']:
+            campaign_mapping[match['source_id']] = match['target_id']
+        
+        db_utils.bulk_update_id_mappings('Campaign', campaign_mapping)
+        
+        # Update run statistics
+        db_utils.update_comparison_run(
+            run_id,
+            total_source_records=total_source,
+            total_target_records=total_target,
+            matched_count=matched,
+            unmatched_count=unmatched,
+            status='completed'
+        )
+        
+        print(f"  ✅ Saved {len(all_matches)} campaign matches")
+        print(f"  ✅ Updated {len(campaign_mapping)} ID mappings")
+        
+        # Export to legacy formats if requested
+        if args.export_json or args.export_csv:
+            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            results_dir = Path(__file__).resolve().parents[1] / 'results'
+            results_dir.mkdir(exist_ok=True)
+            
+            if args.export_json:
+                json_path = results_dir / f'campaign_comparison_{timestamp}.json'
+                db_utils.export_run_to_json(run_id, json_path)
+                print(f"  📄 Exported to JSON: {json_path}")
+                
+                # Also save text report
+                txt_path = results_dir / f'campaign_comparison_{timestamp}.txt'
+                txt_path.write_text(report_text)
+                print(f"  📄 Exported report: {txt_path}")
+            
+            if args.export_csv:
+                db_utils.export_run_to_csv(run_id, results_dir)
+                print(f"  📄 Exported to CSV: {results_dir}")
+        
+        print(f"\n{'='*80}")
+        print(f"✅ Comparison completed successfully!")
+        print(f"{'='*80}")
+        print(f"Run ID: {run_id}")
+        print(f"Database: {db_utils.DB_PATH}")
+        print(f"\nUse query_results.py to view and analyze results:")
+        print(f"  python3 query_results.py run-details {run_id}")
+        print(f"  python3 query_results.py campaigns --run-id {run_id}")
+        print(f"{'='*80}")
+        
+        # Recommendations
+        if len(results['not_matched']) > 0:
+            print(f"\n💡 Next Steps:")
+            print(f"  {len(results['not_matched'])} campaigns need to be created in target org")
     
-    # Compare campaigns
-    results = compare_campaigns(source_campaigns, target_campaigns)
-    
-    # Generate report
-    report_text = generate_report(results, source_org, target_org, start_date, end_date)
-    
-    # Display summary
-    print("\n" + report_text)
-    
-    # Save results
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    
-    # Save detailed JSON
-    json_filename = f"../results/campaign_comparison_{timestamp}.json"
-    with open(json_filename, 'w') as f:
-        json.dump({
-            'metadata': {
-                'source_org': source_org,
-                'target_org': target_org,
-                'start_date': start_date,
-                'end_date': end_date,
-                'timestamp': timestamp
-            },
-            'results': results
-        }, f, indent=2)
-    
-    # Save report
-    report_filename = f"../results/campaign_comparison_{timestamp}.txt"
-    with open(report_filename, 'w') as f:
-        f.write(report_text)
-    
-    # Create campaign ID mapping file (like we do for contacts)
-    campaign_mapping = {}
-    
-    # Add name matches
-    for match in results['matched_by_name']:
-        campaign_mapping[match['source_id']] = match['target_id']
-    
-    # Add ExternalID matches
-    for match in results['matched_by_external_id']:
-        campaign_mapping[match['source_id']] = match['target_id']
-    
-    # Save mapping
-    mapping_filename = f"../data/campaign_id_mapping_{timestamp}.json"
-    with open(mapping_filename, 'w') as f:
-        json.dump(campaign_mapping, f, indent=2)
-    
-    print(f"\n{'='*80}")
-    print(f"📄 Results saved:")
-    print(f"  - {json_filename}")
-    print(f"  - {report_filename}")
-    print(f"  - {mapping_filename}")
-    print(f"{'='*80}")
-    
-    # Recommendations
-    if len(results['not_matched']) > 0:
-        print(f"\n💡 Next Steps:")
-        print(f"  {len(results['not_matched'])} campaigns need to be created in target org")
+    except Exception as e:
+        db_utils.update_comparison_run(run_id, status='failed', 
+                                      notes=f'Error: {str(e)}')
+        raise
 
 if __name__ == '__main__':
     main()

@@ -45,5 +45,9 @@ data-migration-tools/results/
 data-migration-tools/data/
 duplicate_report_*.csv
 
+# Backup databases and files (too large for git)
+data-migration-tools/backups/
+*.db
+
 # Config files with credentials
 config.json
