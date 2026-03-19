@@ -213,6 +213,112 @@ def generate_report(duplicate_groups, org_alias):
     return "\n".join(report)
 
 
+def show_existing_runs():
+    """Display existing duplicate detection runs"""
+    runs = db_utils.get_duplicate_detection_runs('Contact')
+    
+    if not runs:
+        print("  📭 No existing duplicate detection runs found")
+        return []
+    
+    print(f"\n  📊 Found {len(runs)} existing duplicate detection run(s):")
+    print()
+    print("  " + "-"*76)
+    print(f"  {'Run ID':<8} {'Date':<20} {'Org':<25} {'Groups':<8} {'Status':<10}")
+    print("  " + "-"*76)
+    
+    for run in runs:
+        timestamp = run.get('timestamp', 'N/A')
+        if timestamp and timestamp != 'N/A':
+            # Format timestamp for display
+            try:
+                if isinstance(timestamp, str):
+                    dt = datetime.fromisoformat(timestamp.replace('Z', '+00:00'))
+                else:
+                    dt = timestamp
+                timestamp_str = dt.strftime('%Y-%m-%d %H:%M:%S')
+            except:
+                timestamp_str = str(timestamp)[:19]
+        else:
+            timestamp_str = 'N/A'
+        
+        print(f"  {run['id']:<8} {timestamp_str:<20} {run.get('source_org', 'N/A')[:24]:<25} "
+              f"{run.get('matched_count', 0):<8} {run.get('status', 'N/A'):<10}")
+    
+    print("  " + "-"*76)
+    print()
+    
+    return runs
+
+
+def prompt_clear_results():
+    """Prompt user to clear existing results"""
+    runs = show_existing_runs()
+    
+    if not runs:
+        return True  # No existing runs, proceed
+    
+    print("⚠️  Existing duplicate detection results found in database.")
+    print()
+    print("Options:")
+    print("  1. Clear ALL existing results and run fresh detection")
+    print("  2. Clear specific run (you'll be prompted for run ID)")
+    print("  3. Keep existing results and add new detection run")
+    print("  4. Exit")
+    
+    while True:
+        choice = input("\nEnter choice (1-4): ").strip()
+        
+        if choice == '1':
+            # Clear all
+            confirm = input("  ⚠️  Are you sure you want to delete ALL duplicate detection results? (yes/no): ").strip().lower()
+            if confirm in ['yes', 'y']:
+                print("\n🗑️  Clearing all duplicate detection results...")
+                runs_deleted, groups_deleted, records_deleted = db_utils.delete_all_duplicate_groups('Contact')
+                print(f"  ✅ Deleted {runs_deleted} run(s), {groups_deleted} group(s), {records_deleted} record(s)")
+                return True
+            else:
+                print("  ⏭️  Cancelled. Keeping existing results.")
+                return False
+        
+        elif choice == '2':
+            # Clear specific run
+            try:
+                run_id_input = input("  Enter run ID to delete: ").strip()
+                run_id = int(run_id_input)
+                
+                # Verify run exists
+                if not any(r['id'] == run_id for r in runs):
+                    print(f"  ❌ Run ID {run_id} not found")
+                    continue
+                
+                confirm = input(f"  ⚠️  Delete run {run_id}? (yes/no): ").strip().lower()
+                if confirm in ['yes', 'y']:
+                    print(f"\n🗑️  Clearing run {run_id}...")
+                    groups_deleted, records_deleted = db_utils.delete_duplicate_groups_by_run_id(run_id)
+                    print(f"  ✅ Deleted {groups_deleted} group(s), {records_deleted} record(s)")
+                    return True
+                else:
+                    print("  ⏭️  Cancelled.")
+                    return False
+            except ValueError:
+                print("  ❌ Invalid run ID. Please enter a number.")
+                continue
+        
+        elif choice == '3':
+            # Keep existing, proceed
+            print("  ✅ Keeping existing results. New detection will be added.")
+            return True
+        
+        elif choice == '4':
+            # Exit
+            print("\n👋 Exiting...")
+            sys.exit(0)
+        
+        else:
+            print("  ❌ Invalid choice. Please enter 1, 2, 3, or 4.")
+
+
 def main():
     """Main execution function"""
     parser = argparse.ArgumentParser(
@@ -223,6 +329,12 @@ def main():
                        help='Export results to JSON file')
     parser.add_argument('--export-csv', action='store_true',
                        help='Export results to CSV file')
+    parser.add_argument('--clear-all', action='store_true',
+                       help='Clear all existing duplicate detection results before running')
+    parser.add_argument('--clear-run', type=int, metavar='RUN_ID',
+                       help='Clear specific run ID before running')
+    parser.add_argument('--no-prompt', action='store_true',
+                       help='Skip prompts and run detection (keeps existing results)')
     
     args = parser.parse_args()
     
@@ -248,6 +360,25 @@ def main():
     
     # Initialize database
     db_utils.init_database()
+    
+    # Handle clearing results
+    if args.clear_all:
+        print("🗑️  Clearing all existing duplicate detection results...")
+        runs_deleted, groups_deleted, records_deleted = db_utils.delete_all_duplicate_groups('Contact')
+        print(f"  ✅ Deleted {runs_deleted} run(s), {groups_deleted} group(s), {records_deleted} record(s)")
+        print()
+    elif args.clear_run:
+        print(f"🗑️  Clearing run {args.clear_run}...")
+        groups_deleted, records_deleted = db_utils.delete_duplicate_groups_by_run_id(args.clear_run)
+        print(f"  ✅ Deleted {groups_deleted} group(s), {records_deleted} record(s)")
+        print()
+    elif not args.no_prompt:
+        # Interactive prompt
+        should_proceed = prompt_clear_results()
+        if not should_proceed:
+            print("\n👋 Exiting without running detection.")
+            sys.exit(0)
+        print()
     
     # Query contacts
     contacts = query_all_contacts(args.org_alias)

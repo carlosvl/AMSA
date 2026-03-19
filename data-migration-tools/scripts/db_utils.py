@@ -799,6 +799,114 @@ def update_duplicate_group_action(group_id, action):
         """, (action, group_id))
 
 
+def get_duplicate_detection_runs(object_type='Contact'):
+    """
+    Get all duplicate detection runs for a specific object type.
+    
+    Args:
+        object_type: Type of object (default: 'Contact')
+        
+    Returns:
+        List of run dictionaries with id, timestamp, source_org, total_source_records, matched_count
+    """
+    run_type = f'{object_type.lower()}_duplicate_detection'
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT id, timestamp, source_org, total_source_records, matched_count, status
+            FROM comparison_runs
+            WHERE run_type = ?
+            ORDER BY timestamp DESC
+        """, (run_type,))
+        return [dict(row) for row in cursor.fetchall()]
+
+
+def delete_duplicate_groups_by_run_id(run_id):
+    """
+    Delete all duplicate groups and records for a specific run ID.
+    
+    Args:
+        run_id: ID of the comparison run to delete
+        
+    Returns:
+        Tuple of (groups_deleted, records_deleted)
+    """
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        
+        # Get group IDs for this run
+        cursor.execute("SELECT id FROM duplicate_groups WHERE run_id = ?", (run_id,))
+        group_ids = [row['id'] for row in cursor.fetchall()]
+        
+        # Delete duplicate records first (foreign key constraint)
+        records_deleted = 0
+        for group_id in group_ids:
+            cursor.execute("DELETE FROM duplicate_records WHERE group_id = ?", (group_id,))
+            records_deleted += cursor.rowcount
+        
+        # Delete duplicate groups
+        cursor.execute("DELETE FROM duplicate_groups WHERE run_id = ?", (run_id,))
+        groups_deleted = cursor.rowcount
+        
+        # Delete merge operations for this run
+        cursor.execute("DELETE FROM merge_operations WHERE run_id = ?", (run_id,))
+        
+        # Delete the comparison run itself
+        cursor.execute("DELETE FROM comparison_runs WHERE id = ?", (run_id,))
+        
+        return groups_deleted, records_deleted
+
+
+def delete_all_duplicate_groups(object_type='Contact'):
+    """
+    Delete all duplicate groups and records for a specific object type.
+    
+    Args:
+        object_type: Type of object (default: 'Contact')
+        
+    Returns:
+        Tuple of (runs_deleted, groups_deleted, records_deleted)
+    """
+    run_type = f'{object_type.lower()}_duplicate_detection'
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        
+        # Get all run IDs for duplicate detection of this object type
+        cursor.execute("""
+            SELECT id FROM comparison_runs 
+            WHERE run_type = ?
+        """, (run_type,))
+        run_ids = [row['id'] for row in cursor.fetchall()]
+        
+        runs_deleted = len(run_ids)
+        groups_deleted = 0
+        records_deleted = 0
+        
+        for run_id in run_ids:
+            # Get group IDs for this run
+            cursor.execute("SELECT id FROM duplicate_groups WHERE run_id = ?", (run_id,))
+            group_ids = [row['id'] for row in cursor.fetchall()]
+            
+            # Delete duplicate records first
+            for group_id in group_ids:
+                cursor.execute("DELETE FROM duplicate_records WHERE group_id = ?", (group_id,))
+                records_deleted += cursor.rowcount
+            
+            # Delete duplicate groups
+            cursor.execute("DELETE FROM duplicate_groups WHERE run_id = ?", (run_id,))
+            groups_deleted += cursor.rowcount
+        
+        # Delete merge operations
+        for run_id in run_ids:
+            cursor.execute("DELETE FROM merge_operations WHERE run_id = ?", (run_id,))
+        
+        # Delete comparison runs
+        for run_id in run_ids:
+            cursor.execute("DELETE FROM comparison_runs WHERE id = ?", (run_id,))
+        
+        return runs_deleted, groups_deleted, records_deleted
+
+
 def save_merge_result(run_id, group_id, master_id, merged_ids, status, error=None):
     """
     Save merge operation result to database.

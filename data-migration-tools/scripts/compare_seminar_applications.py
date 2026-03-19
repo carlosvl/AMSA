@@ -206,15 +206,27 @@ def compare_applications(source_records, target_records, contact_map, campaign_m
     print(f"  ⚠️  Extra application keys in target (no source match): {len(extra)}")
     print(f"  🗑️  Extra records in target (for deletion): {len(extra_records)}")
 
+    # Build id_mapping for matched records (enables migrate_object_files)
+    # When multiple target records exist per key, use the first
+    id_mapping = {}
+    for key in matched:
+        src_id = source_details.get(key, {}).get('source_id')
+        tgt_records = target_details.get(key, [])
+        tgt_id = tgt_records[0]['id'] if tgt_records else None
+        if src_id and tgt_id:
+            id_mapping[src_id] = tgt_id
+
     return {
         'source_mapped_applications': len(source_keys),
         'unmapped_source_applications': len(unmapped_source),
         'target_applications': len(target_keys),
         'matched_keys': len(matched),
+        'matched_set': matched,
         'missing_keys': len(missing),
         'extra_keys': len(extra),
         'extra_records': extra_records,
         'unmapped_source_details': unmapped_source,
+        'id_mapping': id_mapping,
     }
 
 
@@ -336,12 +348,18 @@ def main():
 
         results = compare_applications(src_apps, tgt_apps, contact_map, campaign_map)
 
+        # Update id_mappings for migrate_object_files
+        id_mapping = results.get('id_mapping', {})
+        if id_mapping:
+            db_utils.bulk_update_id_mappings('Seminar_Application__c', id_mapping)
+            print(f"  ✅ Updated {len(id_mapping)} Seminar_Application__c ID mappings")
+
         # Save matches to database
         print("\n💾 Saving results to database...")
         
         # Save matched applications
         matched_apps = []
-        for key in results.get('matched_keys', []):
+        for key in results.get('matched_set', set()):
             matched_apps.append({
                 'match_status': 'matched',
                 'record_id': key

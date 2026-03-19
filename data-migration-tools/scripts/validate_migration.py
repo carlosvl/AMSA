@@ -240,6 +240,33 @@ def validate_id_mappings(verbose: bool) -> Dict:
     return results
 
 
+def count_files_for_object(org_alias: str, object_name: str, batch_size: int = 200) -> int:
+    """
+    Count ContentDocumentLinks for an object.
+    ContentDocumentLink requires LinkedEntityId IN (...) - cannot use LinkedEntity.Type.
+    """
+    try:
+        # Fetch all entity IDs
+        id_query = f"SELECT Id FROM {object_name}"
+        records = run_soql(org_alias, id_query)
+        entity_ids = [r.get('Id') for r in records if r.get('Id')]
+        if not entity_ids:
+            return 0
+
+        total = 0
+        for i in range(0, len(entity_ids), batch_size):
+            batch = entity_ids[i:i + batch_size]
+            ids_str = "','".join(batch)
+            count_query = f"SELECT COUNT() FROM ContentDocumentLink WHERE LinkedEntityId IN ('{ids_str}')"
+            cnt = run_count_query(org_alias, count_query)
+            if cnt < 0:
+                return -1
+            total += cnt
+        return total
+    except Exception:
+        return -1
+
+
 def validate_file_migrations(source_org: str, target_org: str, verbose: bool) -> Dict:
     """Validate file migrations for key objects."""
     print("\n📁 Validating File Migrations...")
@@ -255,11 +282,8 @@ def validate_file_migrations(source_org: str, target_org: str, verbose: bool) ->
     file_objects = ['Contact', 'Account', 'Campaign']
     
     for obj_name in file_objects:
-        source_query = f"SELECT COUNT() FROM ContentDocumentLink WHERE LinkedEntity.Type = '{obj_name}'"
-        target_query = f"SELECT COUNT() FROM ContentDocumentLink WHERE LinkedEntity.Type = '{obj_name}'"
-        
-        source_count = run_count_query(source_org, source_query)
-        target_count = run_count_query(target_org, target_query)
+        source_count = count_files_for_object(source_org, obj_name)
+        target_count = count_files_for_object(target_org, obj_name)
         
         if source_count < 0 or target_count < 0:
             status = 'ERROR'

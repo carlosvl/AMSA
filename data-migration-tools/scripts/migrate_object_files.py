@@ -48,10 +48,11 @@ RESULTS_DIR = BASE_DIR / 'results'
 
 def run_soql(org_alias: str, query: str):
     """Run a SOQL query and return list of records (or [])."""
+    cleaned_query = ' '.join(line.strip() for line in query.strip().split('\n') if line.strip())
     result = subprocess.run(
         [
             'sf', 'data', 'query',
-            '--query', query,
+            '--query', cleaned_query,
             '--target-org', org_alias,
             '--json',
         ],
@@ -62,11 +63,19 @@ def run_soql(org_alias: str, query: str):
 
     if result.returncode != 0:
         print(f"  ❌ SOQL error for org {org_alias}:")
-        print(result.stderr.strip())
+        try:
+            err_data = json.loads(result.stdout)
+            msg = err_data.get('message', err_data.get('detail', str(err_data)))
+            print(f"  {msg}")
+        except Exception:
+            print(f"  {result.stderr.strip() or result.stdout[:500]}")
         return []
 
     try:
         data = json.loads(result.stdout)
+        if data.get('status', 0) != 0:
+            print(f"  ❌ SOQL error for org {org_alias}: {data.get('message', 'Unknown')}")
+            return []
         return data.get('result', {}).get('records', [])
     except Exception as e:
         print(f"  ❌ Failed to parse SOQL JSON for org {org_alias}: {e}")
@@ -106,36 +115,65 @@ def load_id_mappings(object_type: str) -> Dict[str, str]:
     return mappings
 
 
-def query_source_files(org_alias: str, object_type: str) -> List[Dict]:
-    """Query all files linked to the specified object type from source org."""
+def query_source_files(org_alias: str, object_type: str, source_entity_ids: List[str]) -> List[Dict]:
+    """Query all files linked to the given entity IDs from source org.
+    ContentDocumentLink requires filtering by LinkedEntityId (cannot use LinkedEntity.Type)."""
     print(f"📥 Querying files linked to {object_type} from {org_alias}...")
 
-    # Query ContentDocumentLinks for the object type
-    query = f"""
-        SELECT Id, ContentDocumentId, LinkedEntityId, ShareType, Visibility,
-               ContentDocument.Title, ContentDocument.FileType, ContentDocument.ContentSize,
-               ContentDocument.LatestPublishedVersionId
-        FROM ContentDocumentLink
-        WHERE LinkedEntity.Type = '{object_type}'
-    """
+    if not source_entity_ids:
+        print(f"  ⚠️ No source entity IDs to query")
+        return []
 
-    records = run_soql(org_alias, query)
-    print(f"  ✅ Retrieved {len(records)} file links")
-    return records
+    # Batch IDs (Salesforce IN clause limit ~200)
+    batch_size = 200
+    all_records = []
+    for i in range(0, len(source_entity_ids), batch_size):
+        batch_ids = source_entity_ids[i:i + batch_size]
+        ids_str = "','".join(batch_ids)
+        query = f"""
+            SELECT Id, ContentDocumentId, LinkedEntityId, ShareType, Visibility,
+                   ContentDocument.Title, ContentDocument.FileType, ContentDocument.ContentSize,
+                   ContentDocument.LatestPublishedVersionId
+            FROM ContentDocumentLink
+            WHERE LinkedEntityId IN ('{ids_str}')
+        """
+        records = run_soql(org_alias, query)
+        all_records.extend(records)
+        if records and i + batch_size < len(source_entity_ids):
+            time.sleep(0.5)  # Brief pause between batches to avoid rate limits
+
+    print(f"  ✅ Retrieved {len(all_records)} file links")
+    return all_records
 
 
-def query_target_files(org_alias: str, object_type: str) -> Dict[str, List[str]]:
-    """Query existing files in target org, grouped by linked entity."""
+def query_target_files(org_alias: str, object_type: str, target_entity_ids: List[str]) -> Dict[str, List[str]]:
+    """Query existing files in target org, grouped by linked entity.
+    ContentDocumentLink requires filtering by LinkedEntityId (cannot use LinkedEntity.Type)."""
     print(f"📥 Querying existing files in target org for {object_type}...")
 
-    query = f"""
-        SELECT Id, ContentDocumentId, LinkedEntityId,
-               ContentDocument.Title, ContentDocument.ContentSize
-        FROM ContentDocumentLink
-        WHERE LinkedEntity.Type = '{object_type}'
-    """
+    if not target_entity_ids:
+        print(f"  ⚠️ No target entity IDs to query")
+        return {}
 
-    records = run_soql(org_alias, query)
+    # Deduplicate and batch
+    unique_ids = list(dict.fromkeys(target_entity_ids))
+    batch_size = 200
+    all_records = []
+    for i in range(0, len(unique_ids), batch_size):
+        batch_ids = unique_ids[i:i + batch_size]
+        ids_str = "','".join(batch_ids)
+        query = f"""
+            SELECT Id, ContentDocumentId, LinkedEntityId,
+                   ContentDocument.Title, ContentDocument.ContentSize
+            FROM ContentDocumentLink
+            WHERE LinkedEntityId IN ('{ids_str}')
+        """
+        records = run_soql(org_alias, query)
+        all_records.extend(records)
+        if records and i + batch_size < len(unique_ids):
+            time.sleep(0.5)
+
+    records = all_records
     
     # Group files by LinkedEntityId and create lookup by title+size
     files_by_entity = {}
@@ -538,14 +576,16 @@ def main():
         sys.exit(1)
     print()
 
-    # Query source files
-    source_files = query_source_files(source_org, object_type)
+    # Query source files (by source entity IDs - ContentDocumentLink requires LinkedEntityId filter)
+    source_entity_ids = list(id_mappings.keys())
+    source_files = query_source_files(source_org, object_type, source_entity_ids)
     if not source_files:
         print(f"⚠️  No files found linked to {object_type} in source org")
         sys.exit(0)
 
-    # Query target files
-    target_files = query_target_files(target_org, object_type)
+    # Query target files (by target entity IDs)
+    target_entity_ids = list(id_mappings.values())
+    target_files = query_target_files(target_org, object_type, target_entity_ids)
 
     # Identify missing files
     missing_files = identify_missing_files(source_files, target_files, id_mappings)

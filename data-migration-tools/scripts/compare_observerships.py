@@ -189,6 +189,14 @@ def compare_observerships(source_records, target_records, contact_map):
         if key in source_details:
             missing_records.append(source_details[key])
 
+    # Build id_mapping for matched records (enables migrate_object_files)
+    id_mapping = {}
+    for key in matched:
+        src_id = source_details.get(key, {}).get('source_id')
+        tgt_id = target_details.get(key, {}).get('id')
+        if src_id and tgt_id:
+            id_mapping[src_id] = tgt_id
+
     return {
         'source_mapped_observerships': len(source_keys),
         'unmapped_source_observerships': len(unmapped_source),
@@ -199,6 +207,7 @@ def compare_observerships(source_records, target_records, contact_map):
         'missing_records': missing_records,
         'extra_records': extra_records,
         'unmapped_source_details': unmapped_source,
+        'id_mapping': id_mapping,
     }
 
 
@@ -316,6 +325,12 @@ def main():
 
         # Compare
         results = compare_observerships(src_obs, tgt_obs, contact_map)
+
+        # Update id_mappings for migrate_object_files
+        id_mapping = results.get('id_mapping', {})
+        if id_mapping:
+            db_utils.bulk_update_id_mappings('Observership__c', id_mapping)
+            print(f"  ✅ Updated {len(id_mapping)} Observership__c ID mappings")
 
         # Update run statistics
         db_utils.update_comparison_run(

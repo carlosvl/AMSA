@@ -2,9 +2,8 @@
 """
 Compare CampaignMember records between two orgs.
 
-- Uses existing mappings:
-  - data-migration-tools/data/contact_id_mapping.json  (source ContactId -> target ContactId)
-  - data-migration-tools/data/campaign_id_mapping.json (source CampaignId -> target CampaignId)
+- Uses ID mappings from database (Contact, Campaign). Run compare_contacts_sqlite and
+  compare_campaigns first to populate mappings.
 
 - Focuses on Contact-based CampaignMembers (ContactId != null).
 - Matches memberships by (Campaign, Contact, Status).
@@ -17,20 +16,19 @@ Compare CampaignMember records between two orgs.
 Optional date range filter on CampaignMember.CreatedDate.
 """
 
+import argparse
 import json
 import subprocess
 import sys
-from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
+from typing import Optional
+
+import db_utils
 
 # Resolve base dir relative to this script file so it works from any CWD
 BASE_DIR = Path(__file__).resolve().parents[1]
-DATA_DIR = BASE_DIR / 'data'
 RESULTS_DIR = BASE_DIR / 'results'
-
-CONTACT_MAPPING_PATH = DATA_DIR / 'contact_id_mapping.json'
-CAMPAIGN_MAPPING_PATH = DATA_DIR / 'campaign_id_mapping.json'
 
 
 def run_soql(org_alias: str, query: str):
@@ -61,23 +59,20 @@ def run_soql(org_alias: str, query: str):
 
 
 def load_mappings():
-    """Load contact and campaign ID mappings."""
-    if not CONTACT_MAPPING_PATH.exists():
-        print(f"❌ Contact mapping file not found: {CONTACT_MAPPING_PATH}")
-        return None, None
-    if not CAMPAIGN_MAPPING_PATH.exists():
-        print(f"❌ Campaign mapping file not found: {CAMPAIGN_MAPPING_PATH}")
-        return None, None
-
-    contact_map = json.loads(CONTACT_MAPPING_PATH.read_text())
-    campaign_map = json.loads(CAMPAIGN_MAPPING_PATH.read_text())
-
-    print(f"📂 Loaded contact mapping:  {len(contact_map)} entries")
-    print(f"📂 Loaded campaign mapping: {len(campaign_map)} entries")
+    """Load contact and campaign ID mappings from database."""
+    print("📂 Loading ID mappings from database...")
+    contact_map = db_utils.get_id_mappings('Contact')
+    campaign_map = db_utils.get_id_mappings('Campaign')
+    print(f"  ✅ Contact mappings:  {len(contact_map)} entries")
+    print(f"  ✅ Campaign mappings: {len(campaign_map)} entries")
+    if not contact_map:
+        print("  ⚠️  Warning: No Contact mappings. Run compare_contacts_sqlite.py first.")
+    if not campaign_map:
+        print("  ⚠️  Warning: No Campaign mappings. Run compare_campaigns.py first.")
     return contact_map, campaign_map
 
 
-def build_date_filter(start_date: str | None, end_date: str | None):
+def build_date_filter(start_date: Optional[str], end_date: Optional[str]):
     """Build WHERE clause for CreatedDate if dates are provided."""
     clauses = []
     if start_date:
@@ -89,7 +84,7 @@ def build_date_filter(start_date: str | None, end_date: str | None):
     return " WHERE " + " AND ".join(clauses)
 
 
-def query_campaign_members(org_alias: str, start_date: str | None, end_date: str | None):
+def query_campaign_members(org_alias: str, start_date: Optional[str], end_date: Optional[str]):
     """Query CampaignMember records (Contact-based) from an org."""
     print(f"📥 Querying CampaignMember from {org_alias}...")
 
@@ -109,11 +104,11 @@ def query_campaign_members(org_alias: str, start_date: str | None, end_date: str
     return records
 
 
-def normalize_status(status: str | None) -> str:
+def normalize_status(status: Optional[str]) -> str:
     return (status or '').strip().lower()
 
 
-def build_membership_key(camp_id: str, contact_id: str, status: str | None) -> str:
+def build_membership_key(camp_id: str, contact_id: str, status: Optional[str]) -> str:
     return f"{camp_id}|{contact_id}|{normalize_status(status)}"
 
 
@@ -151,6 +146,7 @@ def compare_members(source_records, target_records, contact_map, campaign_map):
 
         source_keys.add(key)
         source_by_key[key] = {
+            'source_id': cm.get('Id'),
             'source_campaign_id': src_camp,
             'source_contact_id': src_contact,
             'target_campaign_id': tgt_camp,
@@ -182,6 +178,7 @@ def compare_members(source_records, target_records, contact_map, campaign_map):
         key = build_membership_key(tgt_camp, tgt_contact, status)
         target_keys.add(key)
         target_by_key[key] = {
+            'target_id': cm.get('Id'),
             'target_campaign_id': tgt_camp,
             'target_contact_id': tgt_contact,
             'status': status,
@@ -202,6 +199,14 @@ def compare_members(source_records, target_records, contact_map, campaign_map):
     missing_in_target = [source_by_key[k] for k in missing_keys]
     extra_in_target = [target_by_key[k] for k in extra_keys]
 
+    # Build id_mapping for matched records (enables migrate_object_files)
+    id_mapping = {}
+    for k in matched_keys:
+        src_id = source_by_key.get(k, {}).get('source_id')
+        tgt_id = target_by_key.get(k, {}).get('target_id')
+        if src_id and tgt_id:
+            id_mapping[src_id] = tgt_id
+
     results = {
         'matched_count': len(matched_keys),
         'missing_in_target_count': len(missing_in_target),
@@ -210,6 +215,10 @@ def compare_members(source_records, target_records, contact_map, campaign_map):
         'missing_in_target': missing_in_target,
         'extra_in_target': extra_in_target,
         'unmapped_source_samples': unmapped_source[:50],
+        'id_mapping': id_mapping,
+        'matched_keys': matched_keys,
+        'source_by_key': source_by_key,
+        'target_by_key': target_by_key,
     }
 
     return results
@@ -293,20 +302,21 @@ def main():
     print("=" * 80)
     print()
 
-    if len(sys.argv) < 3:
-        print("❌ Missing parameters!")
-        print("\nUsage:")
-        print(
-            "  python3 compare_campaign_members.py <source_org> <target_org> [start_date] [end_date]"
-        )
-        print("\nDates (optional): YYYY-MM-DD for CreatedDate filter")
-        print("If no dates provided, compares ALL CampaignMember records.")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(
+        description='Compare CampaignMember records between orgs using Contact/Campaign ID mappings'
+    )
+    parser.add_argument('source_org', help='Source org alias')
+    parser.add_argument('target_org', help='Target org alias')
+    parser.add_argument('start_date', nargs='?', help='Start date YYYY-MM-DD (optional)')
+    parser.add_argument('end_date', nargs='?', help='End date YYYY-MM-DD (optional)')
+    parser.add_argument('--export-json', action='store_true')
+    parser.add_argument('--export-csv', action='store_true')
+    args = parser.parse_args()
 
-    source_org = sys.argv[1]
-    target_org = sys.argv[2]
-    start_date = sys.argv[3] if len(sys.argv) > 3 else None
-    end_date = sys.argv[4] if len(sys.argv) > 4 else None
+    source_org = args.source_org
+    target_org = args.target_org
+    start_date = args.start_date
+    end_date = args.end_date
 
     print("📋 Parameters:")
     print(f"  Source Org: {source_org}")
@@ -315,15 +325,30 @@ def main():
     print(f"  End Date (CreatedDate):   {end_date or 'ALL'}")
     print()
 
+    # Create database run
+    print("💾 Initializing database...")
+    run_id = db_utils.create_comparison_run(
+        run_type='campaign_member_comparison',
+        source_org=source_org,
+        target_org=target_org,
+        start_date=start_date,
+        end_date=end_date
+    )
+    print(f"  ✅ Run ID: {run_id}")
+    print()
+
     # Load mappings
     contact_map, campaign_map = load_mappings()
     if not contact_map or not campaign_map:
+        db_utils.update_comparison_run(run_id, status='failed', notes='No Contact or Campaign mappings')
         sys.exit(1)
     print()
 
     # Query memberships
     src_members = query_campaign_members(source_org, start_date, end_date)
     if not src_members:
+        db_utils.update_comparison_run(run_id, status='completed', total_source_records=0,
+                                       notes='No CampaignMember records in source')
         print("⚠️  No CampaignMember records found in source for given filter")
         sys.exit(0)
 
@@ -332,11 +357,77 @@ def main():
     # Compare
     results = compare_members(src_members, tgt_members, contact_map, campaign_map)
 
-    # Save results
+    # Build matches for save_campaign_member_matches
+    matches = []
+    for m in results.get('missing_in_target', []):
+        matches.append({
+            'source_id': m.get('source_id'),
+            'target_id': None,
+            'campaign_id': m.get('target_campaign_id'),
+            'contact_id': m.get('target_contact_id'),
+            'match_status': 'missing',
+            'status': m.get('status'),
+        })
+    for m in results.get('extra_in_target', []):
+        matches.append({
+            'source_id': None,
+            'target_id': m.get('target_id'),
+            'campaign_id': m.get('target_campaign_id'),
+            'contact_id': m.get('target_contact_id'),
+            'match_status': 'extra',
+            'status': m.get('status'),
+        })
+    for k in results.get('matched_keys', []):
+        src = results.get('source_by_key', {}).get(k, {})
+        tgt = results.get('target_by_key', {}).get(k, {})
+        matches.append({
+            'source_id': src.get('source_id'),
+            'target_id': tgt.get('target_id'),
+            'campaign_id': tgt.get('target_campaign_id'),
+            'contact_id': tgt.get('target_contact_id'),
+            'match_status': 'matched',
+            'status': src.get('status'),
+        })
+    for cm in results.get('unmapped_source_samples', []):
+        matches.append({
+            'source_id': cm.get('Id'),
+            'target_id': None,
+            'campaign_id': cm.get('CampaignId'),
+            'contact_id': cm.get('ContactId'),
+            'match_status': 'unmapped',
+            'status': cm.get('Status'),
+        })
+
+    if matches:
+        db_utils.save_campaign_member_matches(run_id, matches)
+        print(f"  ✅ Saved {len(matches)} campaign member records to database")
+
+    # Update id_mappings for migrate_object_files
+    id_mapping = results.get('id_mapping', {})
+    if id_mapping:
+        db_utils.bulk_update_id_mappings('CampaignMember', id_mapping)
+        print(f"  ✅ Updated {len(id_mapping)} CampaignMember ID mappings")
+
+    # Update run statistics
+    db_utils.update_comparison_run(
+        run_id,
+        total_source_records=len(src_members),
+        total_target_records=len(tgt_members),
+        matched_count=results['matched_count'],
+        unmatched_count=results['missing_in_target_count'],
+        status='completed'
+    )
+
+    # Save results to files
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     json_path = RESULTS_DIR / f'campaign_member_comparison_{timestamp}.json'
     txt_path = RESULTS_DIR / f'campaign_member_comparison_{timestamp}.txt'
+
+    # Exclude non-serializable data from JSON
+    results_export = {k: v for k, v in results.items()
+                     if k not in ('source_by_key', 'target_by_key', 'matched_keys')}
+    results_export['id_mapping'] = results.get('id_mapping', {})
 
     json_path.write_text(
         json.dumps(
@@ -347,8 +438,9 @@ def main():
                     'start_date': start_date,
                     'end_date': end_date,
                     'timestamp': timestamp,
+                    'run_id': run_id,
                 },
-                'results': results,
+                'results': results_export,
             },
             indent=2,
         )
@@ -363,6 +455,8 @@ def main():
     print(f"  - {json_path}")
     print(f"  - {txt_path}")
     print("=" * 80)
+    print(f"\nRun ID: {run_id}")
+    print(f"Database: {db_utils.DB_PATH}")
 
 
 if __name__ == '__main__':
