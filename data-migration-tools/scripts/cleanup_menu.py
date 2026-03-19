@@ -604,6 +604,164 @@ def reparent_all_children(org_alias, object_type, groups):
     }
 
 
+# ─── File / ContentDocumentLink re-linking ───────────────────────────────────
+
+def _reparent_files(org_alias, reparent_map):
+    """Re-link files from non-keeper records to their keepers before deletion.
+
+    ContentDocumentLink.LinkedEntityId is immutable, so we CREATE new links
+    on the keeper and let the old ones cascade-delete with the non-keeper.
+
+    Returns dict: {moved: int, already_linked: int, failed: int}
+    """
+    empty = {'moved': 0, 'already_linked': 0, 'failed': 0}
+    non_keeper_ids = list(reparent_map.keys())
+    if not non_keeper_ids:
+        return empty
+
+    print(f"\n  📎 Checking for files/attachments on {len(non_keeper_ids)} non-keeper records...")
+
+    cdls = []
+    for i in range(0, len(non_keeper_ids), 400):
+        chunk = non_keeper_ids[i:i + 400]
+        id_list = "', '".join(chunk)
+        query = (
+            f"SELECT ContentDocumentId, LinkedEntityId, ShareType "
+            f"FROM ContentDocumentLink "
+            f"WHERE LinkedEntityId IN ('{id_list}')"
+        )
+        cdls.extend(run_soql(org_alias, query))
+
+    if not cdls:
+        print(f"    📎 No files found on non-keeper records")
+        return empty
+
+    print(f"    📎 Found {len(cdls)} file link(s) on non-keeper records")
+
+    keeper_ids = list(set(reparent_map.values()))
+    existing = set()
+    for i in range(0, len(keeper_ids), 400):
+        chunk = keeper_ids[i:i + 400]
+        id_list = "', '".join(chunk)
+        query = (
+            f"SELECT ContentDocumentId, LinkedEntityId "
+            f"FROM ContentDocumentLink "
+            f"WHERE LinkedEntityId IN ('{id_list}')"
+        )
+        for rec in run_soql(org_alias, query):
+            existing.add((rec['ContentDocumentId'], rec['LinkedEntityId']))
+
+    to_create = []
+    already_linked = 0
+    for cdl in cdls:
+        keeper_id = reparent_map.get(cdl['LinkedEntityId'])
+        if not keeper_id:
+            continue
+        doc_id = cdl['ContentDocumentId']
+        key = (doc_id, keeper_id)
+        if key in existing:
+            already_linked += 1
+            continue
+        to_create.append({
+            'ContentDocumentId': doc_id,
+            'LinkedEntityId': keeper_id,
+            'ShareType': cdl.get('ShareType', 'V'),
+        })
+        existing.add(key)
+
+    if not to_create:
+        if already_linked:
+            print(f"    📎 All {already_linked} file(s) already linked to keepers")
+        return {'moved': 0, 'already_linked': already_linked, 'failed': 0}
+
+    print(f"    📎 Creating {len(to_create)} new file link(s) on keeper records...")
+
+    access_token, instance_url = _get_org_access_token(org_alias)
+    if access_token and instance_url:
+        moved, failed = _create_cdls_rest(access_token, instance_url, to_create)
+    else:
+        moved, failed = _create_cdls_cli(org_alias, to_create)
+
+    if moved:
+        print(f"       ✅ {moved} file(s) linked to keepers")
+    if failed:
+        print(f"       ❌ {failed} file link(s) failed")
+
+    return {'moved': moved, 'already_linked': already_linked, 'failed': failed}
+
+
+def _create_cdls_rest(access_token, instance_url, records):
+    """Create ContentDocumentLink records via REST API Composite SObject Collections.
+
+    Supports up to 200 records per request.
+    Returns (success_count, failed_count).
+    """
+    url = f"{instance_url}/services/data/v59.0/composite/sobjects"
+    moved = 0
+    failed = 0
+
+    for i in range(0, len(records), 200):
+        batch = records[i:i + 200]
+        payload = json.dumps({
+            'allOrNone': False,
+            'records': [
+                {
+                    'attributes': {'type': 'ContentDocumentLink'},
+                    'ContentDocumentId': r['ContentDocumentId'],
+                    'LinkedEntityId': r['LinkedEntityId'],
+                    'ShareType': r['ShareType'],
+                }
+                for r in batch
+            ],
+        }).encode('utf-8')
+
+        req = urllib.request.Request(url, data=payload)
+        req.add_header('Content-Type', 'application/json')
+        req.add_header('Authorization', f'Bearer {access_token}')
+
+        try:
+            with urllib.request.urlopen(req, timeout=60) as response:
+                results = json.loads(response.read().decode('utf-8'))
+                for r in results:
+                    if r.get('success'):
+                        moved += 1
+                    else:
+                        failed += 1
+        except Exception as e:
+            failed += len(batch)
+            print(f"       ⚠️  REST batch failed: {e}")
+
+        if i + 200 < len(records):
+            time.sleep(1)
+
+    return moved, failed
+
+
+def _create_cdls_cli(org_alias, records):
+    """Fallback: create ContentDocumentLink records one by one via sf CLI."""
+    moved = 0
+    failed = 0
+    for r in records:
+        values = (
+            f"ContentDocumentId='{r['ContentDocumentId']}' "
+            f"LinkedEntityId='{r['LinkedEntityId']}' "
+            f"ShareType='{r['ShareType']}'"
+        )
+        result = subprocess.run(
+            ['sf', 'data', 'create', 'record',
+             '--sobject', 'ContentDocumentLink',
+             '--values', values,
+             '--target-org', org_alias,
+             '--json'],
+            capture_output=True, text=True, timeout=30,
+        )
+        if result.returncode == 0:
+            moved += 1
+        else:
+            failed += 1
+    return moved, failed
+
+
 # ─── Contact SOAP merge helpers ──────────────────────────────────────────────
 
 def _get_org_access_token(org_alias):
@@ -804,18 +962,23 @@ def generate_duplicate_report(org_alias, action_key, cleanup_result=None):
         reparent_total = reparent.get('total_reparented', 0)
         reparent_warnings = reparent.get('warnings', [])
 
+        file_info = cleanup_result.get('files') or {}
+        files_moved = file_info.get('moved', 0)
+
         if is_merge:
             lines += [
-                '## Child Record Re-parenting\n',
+                '## Child Records & Files\n',
                 '> Salesforce SOAP merge **automatically re-parents all child records** '
-                '(Observerships, Mexico Seminars, Campaign Members, Affiliations, etc.) '
+                'and **re-links all files/attachments** '
+                '(Observerships, Mexico Seminars, Campaign Members, Affiliations, '
+                'ContentDocumentLinks, etc.) '
                 'to the keeper Contact. No manual re-parenting is required.\n',
                 '',
             ]
-        elif reparent_details:
+        elif reparent_details or files_moved:
             lines += [
-                '## Child Record Re-parenting\n',
-                'Before deletion, child records on non-keeper parents were '
+                '## Child Records & Files Re-parenting\n',
+                'Before deletion, child records and files on non-keeper parents were '
                 'moved to the corresponding keeper record.\n',
                 '| Child Object | Field | Records | Action |',
                 '|-------------|-------|-------:|--------|',
@@ -828,6 +991,16 @@ def generate_duplicate_report(org_alias, action_key, cleanup_result=None):
                 )
                 lines.append(
                     f'| {d["child_object"]} | `{d["field"]}` | {_fmt(d["count"])} | {d_label} |'
+                )
+            if files_moved:
+                lines.append(
+                    f'| ContentDocumentLink | `LinkedEntityId` | {_fmt(files_moved)} '
+                    f'| Re-linked to keeper |'
+                )
+            if file_info.get('already_linked', 0) > 0:
+                lines.append(
+                    f'| ContentDocumentLink | `LinkedEntityId` | '
+                    f'{_fmt(file_info["already_linked"])} | Already on keeper (skipped) |'
                 )
             lines.append('')
             if reparent_warnings:
@@ -843,6 +1016,8 @@ def generate_duplicate_report(org_alias, action_key, cleanup_result=None):
         ]
         if not is_merge and reparent_total > 0:
             lines.append(f'| Child Records Re-parented | {_fmt(reparent_total)} |')
+        if not is_merge and files_moved > 0:
+            lines.append(f'| Files Re-linked to Keepers | {_fmt(files_moved)} |')
         lines += [
             f'| Remaining {object_type} Records | {_fmt(remaining)} |',
             '',
@@ -850,8 +1025,15 @@ def generate_duplicate_report(org_alias, action_key, cleanup_result=None):
             'flowchart LR',
             f'    A["{_fmt(total_records)} total"] -->|Detection| B["{_fmt(to_remove)} flagged"]',
         ]
-        if not is_merge and reparent_total > 0:
-            lines.append(f'    B -->|Re-parent| RP["{_fmt(reparent_total)} children moved"]')
+        reparent_or_files = (not is_merge) and (reparent_total > 0 or files_moved > 0)
+        if reparent_or_files:
+            rp_parts = []
+            if reparent_total > 0:
+                rp_parts.append(f'{_fmt(reparent_total)} children')
+            if files_moved > 0:
+                rp_parts.append(f'{_fmt(files_moved)} files')
+            rp_label = ' + '.join(rp_parts) + ' moved'
+            lines.append(f'    B -->|Re-parent| RP["{rp_label}"]')
             lines.append(f'    RP -->|{action_label}| C["' + _fmt(success) + f' {action_verb.lower()}"]')
             lines.append('    style RP fill:#8e44ad,color:#fff')
         else:
@@ -1043,12 +1225,13 @@ def generate_report(org_alias, action_key, cleanup_result=None):
 # ─── Cleanup execution ──────────────────────────────────────────────────────
 
 def execute_duplicate_cleanup(org_alias, action_key):
-    """Delete non-keeper duplicate records with child re-parenting and backup.
+    """Delete non-keeper duplicate records with child re-parenting, file
+    re-linking, and backup.
 
     Flow:
       1. Read groups/non-keepers from DB
-      2. Discover child relationships (Salesforce Describe API)
-      3. Re-parent Lookup children to the keeper; warn about Master-Detail cascades
+      2. Discover child relationships and re-parent Lookup children
+      3. Re-link files (ContentDocumentLink) to keepers
       4. Backup non-keeper records
       5. Bulk-delete non-keepers
     Returns result dict (or None if cancelled).
@@ -1070,6 +1253,16 @@ def execute_duplicate_cleanup(org_alias, action_key):
         return None
 
     print(f"\n  📊 Found {len(non_keeper_ids)} non-keeper records to delete across {len(groups)} groups")
+
+    # ── Build reparent map (non-keeper → keeper) ─────────────────────────────
+    reparent_map = {}
+    for g in groups:
+        keeper_id = next((r['Id'] for r in g['records'] if r['is_keeper']), None)
+        if not keeper_id:
+            continue
+        for r in g['records']:
+            if not r['is_keeper']:
+                reparent_map[r['Id']] = keeper_id
 
     # ── Step 1: Discover and re-parent child records ─────────────────────────
     reparent_result = reparent_all_children(org_alias, object_type, groups)
@@ -1095,13 +1288,16 @@ def execute_duplicate_cleanup(org_alias, action_key):
     if reparent_result['total_reparented'] > 0:
         print(f"\n  ✅ Re-parented {reparent_result['total_reparented']} child record(s) to keeper(s)")
 
-    # ── Step 2: Confirmation ─────────────────────────────────────────────────
+    # ── Step 2: Re-link files to keepers ─────────────────────────────────────
+    file_result = _reparent_files(org_alias, reparent_map)
+
+    # ── Step 3: Confirmation ─────────────────────────────────────────────────
     response = input(f"\n  ⚠️  Delete {len(non_keeper_ids)} {object_type} records? (yes/no): ").strip().lower()
     if response not in ('yes', 'y'):
         print("  ❌ Cancelled")
         return None
 
-    # ── Step 3: Backup ───────────────────────────────────────────────────────
+    # ── Step 4: Backup ───────────────────────────────────────────────────────
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
 
     print(f"\n  💾 Creating backup of {len(non_keeper_ids)} records...")
@@ -1116,7 +1312,7 @@ def execute_duplicate_cleanup(org_alias, action_key):
         id_backup_path.write_text(json.dumps(non_keeper_ids, indent=2))
         print(f"  💾 ID backup: {id_backup_path}")
 
-    # ── Step 4: Delete non-keepers ───────────────────────────────────────────
+    # ── Step 5: Delete non-keepers ───────────────────────────────────────────
     print(f"\n  🗑️  Deleting {len(non_keeper_ids)} records...")
     result = delete_records_bulk(org_alias, object_type, non_keeper_ids)
 
@@ -1126,12 +1322,15 @@ def execute_duplicate_cleanup(org_alias, action_key):
     remaining = query_record_count(org_alias, object_type)
     result['remaining'] = remaining
     result['reparent'] = reparent_result
+    result['files'] = file_result
 
     print(f"\n  {'=' * 60}")
     print(f"  CLEANUP SUMMARY")
     print(f"  {'=' * 60}")
     if reparent_result['total_reparented'] > 0:
         print(f"  Re-parented: {reparent_result['total_reparented']} child records")
+    if file_result['moved'] > 0:
+        print(f"  Files moved: {file_result['moved']} file(s) linked to keepers")
     print(f"  Deleted:     {result['success']}")
     print(f"  Failed:      {result['failed']}")
     print(f"  Remaining:   {_fmt(remaining)}")
