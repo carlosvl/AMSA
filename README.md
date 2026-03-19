@@ -115,9 +115,9 @@ python3 cleanup_menu.py "AMSA Prod" --action 6
 
 | Type | Object | Detection Logic | Cleanup Method |
 |------|--------|----------------|----------------|
-| **Duplicates** | `Observership__c` | Same `Applicant__c` + `Application_Number__c` (fallback `OMI_App_Date_I__c`) | Bulk delete (re-parents children first) |
-| **Duplicates** | `Mexico_Seminars__c` | Same `Applicant__c` + `Symposium__c` | Bulk delete (re-parents children first) |
-| **Duplicates** | `Contact` | Same Full Name + Email | SOAP merge (auto re-parents all children) |
+| **Duplicates** | `Observership__c` | Same `Applicant__c` + `Application_Number__c` (fallback `OMI_App_Date_I__c`) | Bulk delete (re-parents children + re-links files) |
+| **Duplicates** | `Mexico_Seminars__c` | Same `Applicant__c` + `Symposium__c` | Bulk delete (re-parents children + re-links files) |
+| **Duplicates** | `Contact` | Same Full Name + Email | SOAP merge (auto re-parents children + files) |
 | **Ghosts (Cat A)** | `Observership__c` | Connected to Contact but missing `Application_Number__c` AND `OMI_App_Date_I__c` | Bulk delete |
 | **Ghosts (Cat A)** | `Mexico_Seminars__c` | Connected to Contact but missing `Symposium__c` | Bulk delete |
 | **Ghosts (Cat B)** | Both custom objects | Connected to Contact but ALL data fields are NULL/empty | Bulk delete |
@@ -126,7 +126,7 @@ python3 cleanup_menu.py "AMSA Prod" --action 6
 
 - **Dry-run by default** — detection never deletes anything unless you explicitly choose cleanup
 - **Backups before every deletion/merge** — JSON + CSV saved to `results/backups/` before any records are removed
-- **Child re-parenting** — for custom objects, child records are re-parented to the keeper before deletion; for Contacts, Salesforce SOAP merge handles this automatically
+- **Child re-parenting + file re-linking** — for custom objects, child records are re-parented and files (ContentDocumentLink) are re-linked to the keeper before deletion; for Contacts, Salesforce SOAP merge handles this automatically
 - **Confirmation prompts** — interactive confirmation before bulk deletes or merges
 - **Database tracking** — every detection run and its results are logged in SQLite for audit
 
@@ -137,7 +137,7 @@ Markdown reports are saved to `results/reports/` and include:
 - Metadata table (org, date, run ID)
 - **Before Cleanup** summary with a Mermaid pie chart showing record distribution
 - Detailed tables (duplicate groups or ghost record samples)
-- **Child Re-parenting** summary (for custom object duplicates) or auto-reparent note (for Contacts)
+- **Child Records & Files Re-parenting** summary (for custom object duplicates) or auto-reparent note (for Contacts)
 - **After Cleanup** results with a Mermaid flowchart showing the deletion/merge pipeline
 - If cleanup hasn't run yet, a pending-state diagram shows the expected outcome
 

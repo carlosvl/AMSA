@@ -75,7 +75,8 @@ All tools live in `data-migration-tools/scripts/`. Results go to SQLite `migrati
   - Detects ghost records: Observership\_\_c, Mexico\_Seminars\_\_c
   - Generates shareable Markdown reports with Mermaid diagrams
   - Executes cleanup: bulk delete (custom objects) or SOAP merge (Contacts)
-  - Re-parents child records before deletion; Contact merge auto-reparents via Salesforce
+  - Re-parents child records and re-links files (ContentDocumentLink) to keepers before deletion
+  - Contact merge auto-reparents all children and files via Salesforce
 - `detect_contact_duplicates.py` — Find Contact duplicates (name + email)
 - `detect_observership_duplicates.py` — Find Observership\_\_c duplicates
 - `detect_mexico_seminar_duplicates.py` — Find Mexico\_Seminars\_\_c duplicates

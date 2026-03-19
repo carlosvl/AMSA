@@ -14,9 +14,9 @@ The **cleanup menu** (`scripts/cleanup_menu.py`) is the interactive launcher for
 
 | # | Action | Object | Cleanup Method |
 |---|--------|--------|----------------|
-| 1 | Duplicate detection | `Observership__c` | Bulk delete (re-parents children first) |
-| 2 | Duplicate detection | `Mexico_Seminars__c` | Bulk delete (re-parents children first) |
-| 5 | Duplicate detection | `Contact` | SOAP merge (auto re-parents all children) |
+| 1 | Duplicate detection | `Observership__c` | Bulk delete (re-parents children + re-links files) |
+| 2 | Duplicate detection | `Mexico_Seminars__c` | Bulk delete (re-parents children + re-links files) |
+| 5 | Duplicate detection | `Contact` | SOAP merge (auto re-parents children + files) |
 | 3 | Ghost detection | `Observership__c` | Bulk delete |
 | 4 | Ghost detection | `Mexico_Seminars__c` | Bulk delete |
 | 6 | Run ALL detection | All of the above | Dry-run only |
