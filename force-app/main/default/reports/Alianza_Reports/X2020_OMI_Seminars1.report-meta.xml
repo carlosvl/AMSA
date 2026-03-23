@@ -49,7 +49,7 @@
         <value>1</value>
     </params>
     <reportType>ContactCustomEntity$Seminar_Application__c@Seminar_Application__c.Seminar__c</reportType>
-    <scope>my</scope>
+    <scope>organization</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>

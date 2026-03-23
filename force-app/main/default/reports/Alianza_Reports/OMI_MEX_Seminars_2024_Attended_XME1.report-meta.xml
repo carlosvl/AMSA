@@ -43,7 +43,7 @@
         <value>1</value>
     </params>
     <reportType>ContactCustomEntity$Mexico_Seminars__c@Mexico_Seminars__c.Symposium__c</reportType>
-    <scope>my</scope>
+    <scope>organization</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>

@@ -43,7 +43,7 @@
         <value>1</value>
     </params>
     <reportType>CampaignContact</reportType>
-    <scope>user</scope>
+    <scope>orgAll</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>

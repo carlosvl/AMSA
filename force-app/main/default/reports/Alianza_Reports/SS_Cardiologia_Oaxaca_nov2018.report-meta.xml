@@ -31,14 +31,14 @@
     <name>SS Cardiologia Oaxaca nov2018</name>
     <params>
         <name>scopeid</name>
-        <value>7010G000000Cp3H</value>
+        <value></value>
     </params>
     <params>
         <name>co</name>
         <value>1</value>
     </params>
     <reportType>CampaignContact</reportType>
-    <scope>one</scope>
+    <scope>orgAll</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
